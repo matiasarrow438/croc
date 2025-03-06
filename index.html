@@ -330,7 +330,20 @@
                 // Resume game when tab is active again
                 isPaused = false;
                 document.querySelector('.pause-overlay').style.display = 'none';
+                
+                // Clear existing coins and bombs to prevent accumulation
+                coins = [];
+                bombs = [];
+                
+                // Reset timestamps and intervals
                 lastTimestamp = performance.now();
+                
+                // Clear any existing intervals first
+                clearInterval(gameLoop);
+                clearInterval(coinSpawnInterval);
+                clearInterval(bombSpawnInterval);
+                
+                // Start fresh intervals
                 gameLoop = setInterval(update, 1000/60);
                 coinSpawnInterval = setInterval(spawnCoin, 1000);
                 bombSpawnInterval = setInterval(spawnBomb, 2000);
@@ -407,13 +420,18 @@
         }
 
         function spawnBomb() {
-            bombs.push({
-                x: Math.random() * (canvas.width - 30),
-                y: -30,
-                width: 30,
-                height: 30,
-                speed: 2 + Math.random() * 2
-            });
+            if (isPaused) return;
+            
+            // Only spawn if we don't have too many bombs
+            if (bombs.length < 3) {
+                bombs.push({
+                    x: Math.random() * (canvas.width - 30),
+                    y: -30,
+                    width: 30,
+                    height: 30,
+                    speed: 2 + Math.random() * 2
+                });
+            }
         }
 
         function startGame() {
@@ -421,6 +439,10 @@
             gameStarted = true;
             isPaused = false;
             lastTimestamp = performance.now();
+            
+            // Clear any existing entities
+            coins = [];
+            bombs = [];
             
             // Hide instructions overlay
             document.querySelector('.instructions-overlay').style.display = 'none';
@@ -430,6 +452,11 @@
             score = 0;
             lives = 3;
             updateScore();
+            
+            // Clear any existing intervals first
+            clearInterval(gameLoop);
+            clearInterval(coinSpawnInterval);
+            clearInterval(bombSpawnInterval);
             
             // Start loops only if tab is active
             if (isTabActive) {
@@ -444,13 +471,18 @@
         }
 
         function spawnCoin() {
-            coins.push({
-                x: Math.random() * (canvas.width - 30),
-                y: -30,
-                width: 30,
-                height: 30,
-                speed: 2 + Math.random() * 2
-            });
+            if (isPaused) return;
+            
+            // Only spawn if we don't have too many coins
+            if (coins.length < 5) {
+                coins.push({
+                    x: Math.random() * (canvas.width - 30),
+                    y: -30,
+                    width: 30,
+                    height: 30,
+                    speed: 2 + Math.random() * 2
+                });
+            }
         }
 
         function updateCrocodilePosition(deltaTime) {
@@ -555,7 +587,7 @@
             if (isPaused) return;
 
             const currentTime = performance.now();
-            const deltaTime = (currentTime - lastTimestamp) / 16.67; // normalize to 60fps
+            const deltaTime = Math.min((currentTime - lastTimestamp) / 16.67, 3); // Cap deltaTime to prevent huge jumps
             lastTimestamp = currentTime;
 
             // Clear canvas
@@ -574,6 +606,10 @@
             
             // Draw crocodile
             drawCrocodile(crocodile.x, crocodile.y);
+            
+            // Safety check for arrays
+            if (coins.length > 5) coins.length = 5;
+            if (bombs.length > 3) bombs.length = 3;
             
             // Update and draw coins with deltaTime
             for (let i = coins.length - 1; i >= 0; i--) {

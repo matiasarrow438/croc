@@ -416,25 +416,50 @@ body {
 
 .control-button {
     pointer-events: auto;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: none;
-    background: rgba(0, 255, 136, 0.2);
+    background: rgba(0, 255, 136, 0.25);
     backdrop-filter: blur(5px);
     color: var(--primary);
-    font-size: 1.5rem;
+    font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+    position: relative;
+}
+
+.control-button::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.control-button.left::before {
+    border-width: 12px 20px 12px 0;
+    border-color: transparent var(--primary) transparent transparent;
+    left: 22px;
+}
+
+.control-button.right::before {
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent var(--primary);
+    right: 22px;
 }
 
 .control-button:active {
     transform: scale(0.95);
     background: rgba(0, 255, 136, 0.4);
+}
+
+.control-button:active::before {
+    opacity: 0.8;
 }
 
 /* Responsive Design */
@@ -537,14 +562,24 @@ body {
     }
 
     .mobile-controls {
-        bottom: 1rem;
-        padding: 0 1rem;
+        display: flex;
+        bottom: 1.5rem;
+        padding: 0 1.5rem;
     }
 
     .control-button {
-        width: 65px;
-        height: 65px;
-        font-size: 1.8rem;
+        width: 75px;
+        height: 75px;
+    }
+
+    .control-button.left::before {
+        border-width: 15px 25px 15px 0;
+        left: 23px;
+    }
+
+    .control-button.right::before {
+        border-width: 15px 0 15px 25px;
+        right: 23px;
     }
 
     /* Instructions Overlay Mobile Fix */
@@ -647,13 +682,23 @@ body {
     }
 
     .control-button {
-        width: 55px;
-        height: 55px;
-        font-size: 1.5rem;
+        width: 65px;
+        height: 65px;
+    }
+
+    .control-button.left::before {
+        border-width: 12px 20px 12px 0;
+        left: 20px;
+    }
+
+    .control-button.right::before {
+        border-width: 12px 0 12px 20px;
+        right: 20px;
     }
 
     .mobile-controls {
-        bottom: 0.5rem;
+        bottom: 1rem;
+        padding: 0 1rem;
     }
 
     .game-header h2 {

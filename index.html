@@ -83,6 +83,12 @@
                         <div class="score">SCORE: <span id="scoreValue">0</span></div>
                         <div class="high-score">HIGH SCORE: <span id="highScoreValue">0</span></div>
                     </div>
+                    <div class="pause-overlay">
+                        <div class="pause-content">
+                            <h2>PAUSED</h2>
+                            <p>Click anywhere or switch back to this tab to resume</p>
+                        </div>
+                    </div>
                     <div class="instructions-overlay">
                         <div class="instructions-content">
                             <h2>How to Play</h2>
@@ -290,6 +296,8 @@
         let coinSpawnInterval;
         let bombSpawnInterval;
         let isTabActive = true;
+        let isPaused = false;
+        let lastTimestamp = 0;
 
         let keys = {
             left: false,
@@ -311,13 +319,18 @@
 
         function setTabActive(active) {
             isTabActive = active;
-            if (!active) {
+            if (!active && gameStarted) {
                 // Pause game when tab is inactive
+                isPaused = true;
+                document.querySelector('.pause-overlay').style.display = 'flex';
                 clearInterval(gameLoop);
                 clearInterval(coinSpawnInterval);
                 clearInterval(bombSpawnInterval);
-            } else if (gameStarted) {
+            } else if (active && gameStarted) {
                 // Resume game when tab is active again
+                isPaused = false;
+                document.querySelector('.pause-overlay').style.display = 'none';
+                lastTimestamp = performance.now();
                 gameLoop = setInterval(update, 1000/60);
                 coinSpawnInterval = setInterval(spawnCoin, 1000);
                 bombSpawnInterval = setInterval(spawnBomb, 2000);
@@ -406,9 +419,12 @@
         function startGame() {
             if (gameStarted) return;
             gameStarted = true;
+            isPaused = false;
+            lastTimestamp = performance.now();
             
             // Hide instructions overlay
             document.querySelector('.instructions-overlay').style.display = 'none';
+            document.querySelector('.pause-overlay').style.display = 'none';
             
             // Reset score and lives
             score = 0;
@@ -437,25 +453,25 @@
             });
         }
 
-        function updateCrocodilePosition() {
+        function updateCrocodilePosition(deltaTime) {
             // Apply acceleration based on key presses
             if (keys.left) {
-                crocodile.velocity -= crocodile.speed;
+                crocodile.velocity -= crocodile.speed * deltaTime;
                 crocodile.direction = -1;
             }
             if (keys.right) {
-                crocodile.velocity += crocodile.speed;
+                crocodile.velocity += crocodile.speed * deltaTime;
                 crocodile.direction = 1;
             }
             
             // Apply friction
-            crocodile.velocity *= crocodile.friction;
+            crocodile.velocity *= Math.pow(crocodile.friction, deltaTime);
             
             // Limit max speed
             crocodile.velocity = Math.max(Math.min(crocodile.velocity, crocodile.maxSpeed), -crocodile.maxSpeed);
             
             // Update position
-            crocodile.x += crocodile.velocity;
+            crocodile.x += crocodile.velocity * deltaTime;
             
             // Keep in bounds
             if (crocodile.x < 0) {
@@ -536,6 +552,12 @@
         }
 
         function update() {
+            if (isPaused) return;
+
+            const currentTime = performance.now();
+            const deltaTime = (currentTime - lastTimestamp) / 16.67; // normalize to 60fps
+            lastTimestamp = currentTime;
+
             // Clear canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
@@ -544,8 +566,8 @@
                 ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
             }
             
-            // Update crocodile position
-            updateCrocodilePosition();
+            // Update crocodile position with deltaTime
+            updateCrocodilePosition(deltaTime);
             
             // Draw lives
             drawLives();
@@ -553,10 +575,10 @@
             // Draw crocodile
             drawCrocodile(crocodile.x, crocodile.y);
             
-            // Update and draw coins
+            // Update and draw coins with deltaTime
             for (let i = coins.length - 1; i >= 0; i--) {
                 const coin = coins[i];
-                coin.y += coin.speed;
+                coin.y += coin.speed * deltaTime;
                 
                 // Draw coin with gradient
                 const gradient = ctx.createRadialGradient(
@@ -618,10 +640,10 @@
                 }
             }
 
-            // Update and draw bombs
+            // Update and draw bombs with deltaTime
             for (let i = bombs.length - 1; i >= 0; i--) {
                 const bomb = bombs[i];
-                bomb.y += bomb.speed;
+                bomb.y += bomb.speed * deltaTime;
                 
                 drawBomb(bomb.x, bomb.y);
                 
@@ -682,6 +704,13 @@
                 bombSpawnInterval = setInterval(spawnBomb, 2000);
             }
         }
+
+        // Add click handler to resume game
+        document.addEventListener('click', function() {
+            if (isPaused && gameStarted) {
+                setTabActive(true);
+            }
+        });
     </script>
 </body>
 </html>        

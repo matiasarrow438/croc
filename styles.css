@@ -313,11 +313,15 @@ body {
     padding: 6rem 2rem;
     background: var(--surface);
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .game-container {
     max-width: 1000px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .game-header {
@@ -340,6 +344,10 @@ body {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 0 50px rgba(0, 255, 136, 0.2);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    aspect-ratio: 2/1;
 }
 
 .game-overlay {
@@ -360,9 +368,10 @@ body {
 
 #gameCanvas {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     background: var(--background);
+    object-fit: contain;
 }
 
 /* Animations */
@@ -389,10 +398,47 @@ body {
     50% { text-shadow: 0 0 40px rgba(0, 255, 136, 0.5); }
 }
 
+/* Mobile Controls */
+.mobile-controls {
+    display: none;  /* Hidden by default for desktop */
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    padding: 0 2rem;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.control-button {
+    pointer-events: auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 255, 136, 0.2);
+    backdrop-filter: blur(5px);
+    color: var(--primary);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+}
+
+.control-button:active {
+    transform: scale(0.95);
+    background: rgba(0, 255, 136, 0.4);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
+    /* Navigation */
+    .nav-content {
+        padding: 0.8rem 1rem;
     }
 
     .nav-links {
@@ -400,12 +446,14 @@ body {
         position: absolute;
         top: 100%;
         left: 0;
-        width: 100%;
-        background: var(--background);
-        flex-direction: column;
+        right: 0;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(10px);
         padding: 1rem;
-        text-align: center;
+        flex-direction: column;
+        align-items: center;
         gap: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .nav-links.active {
@@ -413,48 +461,190 @@ body {
     }
 
     .social-links {
-        margin: 1rem 0 0 0;
-        padding: 1rem 0 0 0;
+        margin: 0.5rem 0;
+        padding: 0.5rem 0;
         border-left: none;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
         justify-content: center;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        padding: 4rem 1rem;
+        min-height: calc(100vh - 60px);
     }
 
     .hero-text h1 {
         font-size: 3rem;
+        line-height: 1.2;
     }
 
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
     }
 
     .hero-buttons {
         flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
     }
 
-    .hero-stats {
+    .glow-button, .play-button {
+        width: 100%;
+        justify-content: center;
+        padding: 0.8rem 1.5rem;
+    }
+
+    /* Contract Section */
+    .contract-section {
         flex-direction: column;
-        gap: 2rem;
+        gap: 0.5rem;
+        margin: 1.5rem auto;
+        max-width: 90%;
+    }
+
+    .contract-address {
+        width: 100%;
+        text-align: center;
+        font-size: 0.8rem;
+    }
+
+    /* Game Section */
+    .game-section {
+        padding: 3rem 1rem;
+    }
+
+    .game-header {
+        margin-bottom: 2rem;
     }
 
     .game-header h2 {
         font-size: 2rem;
     }
 
-    .contract-section {
-        flex-direction: column;
-        padding: 1.5rem;
+    .game-wrapper {
+        border-radius: 15px;
+        margin: 0 auto;
+    }
+
+    .game-overlay {
+        top: 0.5rem;
+        left: 0.5rem;
         gap: 1rem;
     }
 
-    .contract-address {
-        width: 100%;
-        min-width: unset;
+    .score, .high-score {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
     }
 
-    .copy-ca-button {
+    .mobile-controls {
+        display: flex;
+        bottom: 1rem;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+        padding: 3rem 1rem;
+    }
+
+    .gallery-header h2 {
+        font-size: 2rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .gallery-item {
+        margin: 0 auto;
+        max-width: 400px;
+    }
+
+    /* Tokenomics Section */
+    .tokenomics-section {
+        padding: 3rem 1rem;
+    }
+
+    .tokenomics-header h2 {
+        font-size: 2rem;
+    }
+
+    .tokenomics-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .tokenomics-item {
+        padding: 1.5rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Instructions and Game Over Overlays */
+    .instructions-content,
+    .game-over-content {
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    .instructions-content h2,
+    .game-over-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .instructions-list p {
+        font-size: 1rem;
+        margin: 0.8rem 0;
+    }
+
+    .got-it-button,
+    .try-again-button {
         width: 100%;
-        justify-content: center;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+/* Small phones optimization */
+@media (max-width: 380px) {
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .game-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .mobile-controls {
+        padding: 0 1rem;
+    }
+
+    .control-button {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Touch-friendly hover states */
+@media (hover: none) {
+    .glow-button:hover,
+    .play-button:hover,
+    .copy-ca-button:hover,
+    .gallery-item:hover .gallery-overlay,
+    .feature-card:hover {
+        transform: none;
     }
 }
 

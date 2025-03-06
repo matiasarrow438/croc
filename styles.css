@@ -12,6 +12,41 @@
     --surface: #1a1a1a;
     --text: #ffffff;
     --accent: #ff3366;
+    --bubble-font: 'Fuzzy Bubbles', sans-serif;
+}
+
+/* Apply bubble font to all headings and important text */
+h1, h2, h3, h4, h5, h6,
+.logo-text,
+.nav-links a,
+.ticker,
+.contract-label,
+.game-header h2,
+.score,
+.high-score,
+.instructions-content h2,
+.game-over-content h2,
+.gallery-header h2,
+.gallery-caption,
+.tokenomics-header h2,
+.tokenomics-item h3,
+.feature-card h3 {
+    font-family: var(--bubble-font);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+/* Utility classes for Fuzzy Bubbles font */
+.fuzzy-bubbles-regular {
+    font-family: "Fuzzy Bubbles", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.fuzzy-bubbles-bold {
+    font-family: "Fuzzy Bubbles", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 body {
@@ -86,7 +121,8 @@ body {
 
 .logo-text {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     background: linear-gradient(45deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     background-clip: text;
@@ -102,11 +138,13 @@ body {
 .nav-links a {
     color: var(--text);
     text-decoration: none;
-    font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
     transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:not(.social-icon):hover {
     color: var(--primary);
 }
 
@@ -123,10 +161,42 @@ body {
     font-size: 1.2rem;
     color: var(--text);
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+/* Brand-specific hover colors */
+.social-icon .fa-twitter {
+    transition: color 0.3s ease;
+}
+
+.social-icon .fa-discord {
+    transition: color 0.3s ease;
+}
+
+.social-icon .fa-telegram {
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover .fa-twitter {
+    color: #1DA1F2; /* Twitter blue */
+}
+
+.social-icon:hover .fa-discord {
+    color: #5865F2; /* Discord blue */
+}
+
+.social-icon:hover .fa-telegram {
+    color: #0088cc; /* Telegram blue */
+}
+
+.pumpfun-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    transition: all 0.3s ease;
 }
 
 .social-icon:hover {
-    color: var(--primary);
     transform: translateY(-2px);
 }
 
@@ -141,13 +211,14 @@ body {
 
 /* Hero Section */
 .hero-section {
-    min-height: 100vh;
-    padding: 6rem 2rem;
+    min-height: auto;
+    padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
 }
 
 .hero-content {
@@ -156,6 +227,10 @@ body {
     text-align: center;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .hero-text h1 {
@@ -179,7 +254,7 @@ body {
     display: flex;
     gap: 1.5rem;
     justify-content: center;
-    margin-bottom: 4rem;
+    margin: 0;
 }
 
 .glow-button, .play-button {
@@ -310,7 +385,7 @@ body {
 /* Game Section */
 .game-section {
     min-height: 100vh;
-    padding: 6rem 2rem;
+    padding: 8rem 2rem 4rem;
     background: var(--surface);
     position: relative;
     display: flex;
@@ -319,24 +394,12 @@ body {
 }
 
 .game-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-}
-
-.game-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.game-header h2 {
-    font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
-}
-
-.game-header p {
-    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .game-wrapper {
@@ -346,8 +409,78 @@ body {
     box-shadow: 0 0 50px rgba(0, 255, 136, 0.2);
     width: 100%;
     max-width: 800px;
-    margin: 0 auto;
     aspect-ratio: 2/1;
+    margin: 0 auto;
+}
+
+.contract-display {
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contract-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.contract-label {
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.contract-address {
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.game-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.ticker {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    text-align: center;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: glow 3s ease-in-out infinite;
+}
+
+.game-header p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.game-and-info {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .game-overlay {
@@ -363,6 +496,8 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 50px;
     font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
     color: var(--primary);
 }
 
@@ -372,6 +507,135 @@ body {
     display: block;
     background: var(--background);
     object-fit: contain;
+}
+
+.token-info-panel {
+    background: rgba(26, 26, 26, 0.7);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 300px;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.1);
+}
+
+.token-info-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.token-info-header h2 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.token-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.token-info-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.token-info-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.info-icon {
+    font-size: 2em;
+    margin-bottom: 0.5rem;
+}
+
+.token-info-item h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.1em;
+}
+
+.token-info-item p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1em;
+}
+
+.info-subtitle {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9em;
+    font-style: italic;
+    margin-top: 0.25rem;
+}
+
+@media (max-width: 1200px) {
+    .game-and-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .token-info-panel {
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .token-info-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .token-info-item {
+        width: calc(33.33% - 1rem);
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-section {
+        padding: 6rem 1rem 3rem;
+    }
+
+    .game-header h2 {
+        font-size: 2rem;
+    }
+
+    .ticker {
+        font-size: 2.8rem;
+    }
+
+    .token-info-grid {
+        flex-direction: column;
+    }
+
+    .token-info-item {
+        width: 100%;
+    }
+
+    .contract-info {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .copy-ca-button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .ticker {
+        font-size: 2.4rem;
+    }
 }
 
 /* Animations */
@@ -471,8 +735,7 @@ body {
 
     /* Hero Section */
     .hero-section {
-        padding: 4rem 1rem;
-        min-height: calc(100vh - 60px);
+        padding: 1.5rem 1rem;
     }
 
     .hero-text h1 {
@@ -487,15 +750,12 @@ body {
     }
 
     .hero-buttons {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 0 1rem;
+        width: 100%;
     }
 
-    .glow-button, .play-button {
+    .glow-button {
         width: 100%;
         justify-content: center;
-        padding: 0.8rem 1.5rem;
     }
 
     /* Contract Section */
@@ -514,15 +774,12 @@ body {
 
     /* Game Section */
     .game-section {
-        padding: 3rem 1rem;
+        padding: 6rem 1rem 3rem;
+        min-height: calc(100vh - 60px);
     }
 
     .game-header {
         margin-bottom: 2rem;
-    }
-
-    .game-header h2 {
-        font-size: 2rem;
     }
 
     .game-wrapper {
@@ -650,7 +907,7 @@ body {
 
 /* Gallery Section */
 .gallery-section {
-    padding: 80px 20px;
+    padding: 4rem 2rem;
     background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
 }
 
@@ -666,9 +923,13 @@ body {
 
 .gallery-header h2 {
     font-size: 3em;
-    color: #fff;
+    font-weight: 700;
     margin-bottom: 20px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
 }
 
 .gallery-header p {
@@ -725,7 +986,7 @@ body {
 .gallery-caption {
     color: #fff;
     font-size: 1.2em;
-    font-weight: bold;
+    font-weight: 600;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -768,7 +1029,8 @@ body {
 
 .instructions-content h2 {
     color: var(--primary);
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-weight: 700;
     margin-bottom: 1.5rem;
     text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
@@ -809,7 +1071,7 @@ body {
 
 /* Tokenomics Section */
 .tokenomics-section {
-    padding: 80px 20px;
+    padding: 4rem 2rem;
     background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
 }
 
@@ -825,9 +1087,13 @@ body {
 
 .tokenomics-header h2 {
     font-size: 3em;
-    color: var(--primary);
+    font-weight: 700;
     margin-bottom: 20px;
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
 }
 
 .tokenomics-header p {
@@ -867,7 +1133,8 @@ body {
 .tokenomics-item h3 {
     color: var(--primary);
     margin-bottom: 5px;
-    font-size: 1.2em;
+    font-size: 1.4em;
+    font-weight: 600;
 }
 
 .tokenomics-item p {

@@ -287,11 +287,42 @@
         let highScore = localStorage.getItem('highScore') || 0;
         let gameLoop;
         let gameStarted = false;
+        let coinSpawnInterval;
+        let bombSpawnInterval;
+        let isTabActive = true;
 
         let keys = {
             left: false,
             right: false
         };
+
+        // Add visibility change handlers
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        window.addEventListener('blur', () => setTabActive(false));
+        window.addEventListener('focus', () => setTabActive(true));
+
+        function handleVisibilityChange() {
+            if (document.hidden) {
+                setTabActive(false);
+            } else {
+                setTabActive(true);
+            }
+        }
+
+        function setTabActive(active) {
+            isTabActive = active;
+            if (!active) {
+                // Pause game when tab is inactive
+                clearInterval(gameLoop);
+                clearInterval(coinSpawnInterval);
+                clearInterval(bombSpawnInterval);
+            } else if (gameStarted) {
+                // Resume game when tab is active again
+                gameLoop = setInterval(update, 1000/60);
+                coinSpawnInterval = setInterval(spawnCoin, 1000);
+                bombSpawnInterval = setInterval(spawnBomb, 2000);
+            }
+        }
 
         function initGame() {
             canvas = document.getElementById('gameCanvas');
@@ -384,10 +415,12 @@
             lives = 3;
             updateScore();
             
-            // Start loops
-            gameLoop = setInterval(update, 1000/60);
-            setInterval(spawnCoin, 1000);
-            setInterval(spawnBomb, 2000); // Spawn bombs every 2 seconds
+            // Start loops only if tab is active
+            if (isTabActive) {
+                gameLoop = setInterval(update, 1000/60);
+                coinSpawnInterval = setInterval(spawnCoin, 1000);
+                bombSpawnInterval = setInterval(spawnBomb, 2000);
+            }
             
             // Add controls
             document.addEventListener('keydown', handleKeyDown);
@@ -641,9 +674,13 @@
             crocodile.velocity = 0;
             updateScore();
             
-            // Start game
+            // Start game only if tab is active
             gameStarted = true;
-            gameLoop = setInterval(update, 1000/60);
+            if (isTabActive) {
+                gameLoop = setInterval(update, 1000/60);
+                coinSpawnInterval = setInterval(spawnCoin, 1000);
+                bombSpawnInterval = setInterval(spawnBomb, 2000);
+            }
         }
     </script>
 </body>

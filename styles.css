@@ -935,10 +935,7 @@ body {
 .feature-icon {
     font-size: 3em;
     margin-bottom: 20px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: inherit;
 }
 
 .feature-card h3 {

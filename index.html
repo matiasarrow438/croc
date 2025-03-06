@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$CROC</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-icon">🐊</div>
+            <div class="loading-text">Loading...</div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="/" class="nav-logo" style="text-decoration: none;">
+                <span class="logo-icon">🐊</span>
+                <span class="logo-text">$CROC</span>
+            </a>
+            <div class="nav-links">
+                <a href="#play">Play Game</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#tokenomics">Tokenomics</a>
+                <div class="social-links">
+                    <a href="#" target="_blank" class="social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" target="_blank" class="social-icon">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="#" target="_blank" class="social-icon">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            <button class="menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>$CROC</h1>
+                    <p class="hero-subtitle">The Most Savage Memecoin in the Crypto Jungle</p>
+                </div>
+                <div class="hero-buttons">
+                    <button class="glow-button" onclick="window.open('https://pump.fun/', '_blank')">
+                        <span class="button-icon">💰</span>
+                        Buy Now
+                    </button>
+                    <button class="play-button" onclick="scrollToGame()">
+                        <span class="button-icon">🎮</span>
+                        Play Game
+                    </button>
+                </div>
+                <div class="contract-section">
+                    <div class="contract-label">CA:</div>
+                    <div class="contract-address">0x1234...5678</div>
+                    <button class="copy-ca-button" onclick="copyContract()">
+                        <span class="button-icon">📋</span>
+                        Copy CA
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-croc">🐊</div>
+                <div class="floating-coins">
+                    <span class="coin">🎮</span>
+                    <span class="coin">🔒</span>
+                    <span class="coin">🐊</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="play" class="game-section">
+            <div class="game-container">
+                <div class="game-header">
+                    <h2>CATCH THE COINS</h2>
+                    <p>Use ← → arrows to move the croc and catch falling coins!</p>
+                </div>
+                <div class="game-wrapper">
+                    <canvas id="gameCanvas" width="800" height="400"></canvas>
+                    <div class="game-overlay">
+                        <div class="score">SCORE: <span id="scoreValue">0</span></div>
+                        <div class="high-score">HIGH SCORE: <span id="highScoreValue">0</span></div>
+                    </div>
+                    <div class="instructions-overlay">
+                        <div class="instructions-content">
+                            <h2>How to Play</h2>
+                            <div class="instructions-list">
+                                <p>🎮 Use <strong>WASD</strong> or <strong>Arrow Keys</strong> to move the crocodile</p>
+                                <p>💰 Catch falling coins to score points</p>
+                                <p>💣 Avoid the bombs - they take away a life</p>
+                                <p>❤️ You have 3 lives to survive</p>
+                            </div>
+                            <button class="got-it-button" onclick="startGame()">Got it!</button>
+                        </div>
+                    </div>
+                    <div class="game-over-overlay">
+                        <div class="game-over-content">
+                            <h2>Game Over!</h2>
+                            <p>Your Score: <span id="finalScore">0</span></p>
+                            <button class="try-again-button" onclick="restartGame()">Try Again</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery-section">
+            <div class="gallery-container">
+                <div class="gallery-header">
+                    <h2>GALLERY</h2>
+                    <p>Check out our community highlights and memes!</p>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="assets/gallery/meme1.png" alt="Croc Meme 1">
+                        <div class="gallery-overlay">
+                            <span class="gallery-caption">Croc Life</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/gallery/meme2.png" alt="Croc Meme 2">
+                        <div class="gallery-overlay">
+                            <span class="gallery-caption">To The Moon</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/gallery/meme3.png" alt="Croc Meme 3">
+                        <div class="gallery-overlay">
+                            <span class="gallery-caption">Diamond Hands</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/gallery/meme4.png" alt="Croc Meme 4">
+                        <div class="gallery-overlay">
+                            <span class="gallery-caption">HODL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tokenomics" class="tokenomics-section">
+            <div class="tokenomics-container">
+                <div class="tokenomics-header">
+                    <h2>TOKENOMICS</h2>
+                    <p>Fair Launch, Community Driven</p>
+                </div>
+                <div class="tokenomics-grid">
+                    <div class="tokenomics-item">
+                        <div class="tokenomics-icon">💎</div>
+                        <h3>Total Supply</h3>
+                        <p>1,000,000,000</p>
+                        <p class="tokenomics-subtitle">1 Billion $CROC</p>
+                    </div>
+                    <div class="tokenomics-item">
+                        <div class="tokenomics-icon">🔒</div>
+                        <h3>Liquidity</h3>
+                        <p>LOCKED</p>
+                        <p class="tokenomics-subtitle">For Maximum Safety</p>
+                    </div>
+                    <div class="tokenomics-item">
+                        <div class="tokenomics-icon">💰</div>
+                        <h3>Tax</h3>
+                        <p>0% Buy/Sell</p>
+                        <p class="tokenomics-subtitle">Pure PumpFun Token</p>
+                    </div>
+                </div>
+                <div class="tokenomics-details">
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <h3>Fair Launch</h3>
+                            <p>No presale, no private sale. Equal opportunity for everyone.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Security First</h3>
+                            <p>Liquidity locked for maximum safety and trust.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💎</div>
+                            <h3>Community Driven</h3>
+                            <p>Power to the holders, fully community owned.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎮</div>
+                            <h3>Play2Earn</h3>
+                            <p>Unique gaming experience with real rewards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.loading-screen').style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Mobile menu
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scroll functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - navbarHeight;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Contract functionality
+        const CONTRACT_ADDRESS = "0x1234...5678";
+        function copyContract() {
+            navigator.clipboard.writeText(CONTRACT_ADDRESS).then(() => {
+                const button = document.querySelector('.copy-ca-button');
+                const originalContent = button.innerHTML;
+                button.innerHTML = '<span class="button-icon">✓</span> CA Copied';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.innerHTML = originalContent;
+                    button.classList.remove('copied');
+                }, 1500);
+            });
+        }
+
+        // Game functionality
+        let canvas, ctx;
+        let crocodileImage = new Image();
+        let heartImage = new Image();
+        let backgroundImage = new Image();
+        crocodileImage.src = 'assets/CROC ICON.png';
+        heartImage.src = './assets/heart.png';
+        backgroundImage.src = 'assets/background.png';
+        
+        // Add image loading handlers
+        heartImage.onload = function() {
+            console.log('Heart image loaded successfully');
+        };
+        
+        backgroundImage.onload = function() {
+            console.log('Background image loaded successfully');
+        };
+        
+        backgroundImage.onerror = function() {
+            console.error('Failed to load background image');
+        };
+        
+        let crocodile = {
+            x: 400,
+            y: 350,
+            width: 80,
+            height: 50,
+            speed: 0.5,
+            maxSpeed: 8,
+            velocity: 0,
+            friction: 0.92,
+            direction: 1 // 1 for right, -1 for left
+        };
+
+        let coins = [];
+        let bombs = [];
+        let score = 0;
+        let lives = 3;
+        let highScore = localStorage.getItem('highScore') || 0;
+        let gameLoop;
+        let gameStarted = false;
+
+        let keys = {
+            left: false,
+            right: false
+        };
+
+        function initGame() {
+            canvas = document.getElementById('gameCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Draw background first
+            if (backgroundImage.complete && backgroundImage.naturalWidth !== 0) {
+                ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+            } else {
+                backgroundImage.onload = function() {
+                    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+                }
+            }
+            
+            // Draw initial state
+            drawCrocodile(crocodile.x, crocodile.y);
+            drawLives();
+            
+            // Remove click to start listener
+            canvas.removeEventListener('click', startGame);
+            document.removeEventListener('keydown', startGameOnKey);
+        }
+
+        function startGameOnKey(e) {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || 
+                e.key.toLowerCase() === 'a' || e.key.toLowerCase() === 'd') {
+                startGame();
+                document.removeEventListener('keydown', startGameOnKey);
+            }
+        }
+
+        function handleKeyDown(e) {
+            switch(e.key.toLowerCase()) {
+                case 'arrowleft':
+                case 'a':
+                    keys.left = true;
+                    break;
+                case 'arrowright':
+                case 'd':
+                    keys.right = true;
+                    break;
+            }
+        }
+
+        function handleKeyUp(e) {
+            switch(e.key.toLowerCase()) {
+                case 'arrowleft':
+                case 'a':
+                    keys.left = false;
+                    break;
+                case 'arrowright':
+                case 'd':
+                    keys.right = false;
+                    break;
+            }
+        }
+
+        function drawLives() {
+            const heartSize = 40;
+            const spacing = 5;
+            const startX = canvas.width - 20 - (heartSize + spacing) * lives;
+            const startY = 20;
+            
+            for (let i = 0; i < lives; i++) {
+                if (heartImage.complete && heartImage.naturalWidth !== 0) {
+                    ctx.drawImage(heartImage, startX + i * (heartSize + spacing), startY, heartSize, heartSize);
+                }
+            }
+        }
+
+        function spawnBomb() {
+            bombs.push({
+                x: Math.random() * (canvas.width - 30),
+                y: -30,
+                width: 30,
+                height: 30,
+                speed: 2 + Math.random() * 2
+            });
+        }
+
+        function startGame() {
+            if (gameStarted) return;
+            gameStarted = true;
+            
+            // Hide instructions overlay
+            document.querySelector('.instructions-overlay').style.display = 'none';
+            
+            // Reset score and lives
+            score = 0;
+            lives = 3;
+            updateScore();
+            
+            // Start loops
+            gameLoop = setInterval(update, 1000/60);
+            setInterval(spawnCoin, 1000);
+            setInterval(spawnBomb, 2000); // Spawn bombs every 2 seconds
+            
+            // Add controls
+            document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keyup', handleKeyUp);
+        }
+
+        function spawnCoin() {
+            coins.push({
+                x: Math.random() * (canvas.width - 30),
+                y: -30,
+                width: 30,
+                height: 30,
+                speed: 2 + Math.random() * 2
+            });
+        }
+
+        function updateCrocodilePosition() {
+            // Apply acceleration based on key presses
+            if (keys.left) {
+                crocodile.velocity -= crocodile.speed;
+                crocodile.direction = -1;
+            }
+            if (keys.right) {
+                crocodile.velocity += crocodile.speed;
+                crocodile.direction = 1;
+            }
+            
+            // Apply friction
+            crocodile.velocity *= crocodile.friction;
+            
+            // Limit max speed
+            crocodile.velocity = Math.max(Math.min(crocodile.velocity, crocodile.maxSpeed), -crocodile.maxSpeed);
+            
+            // Update position
+            crocodile.x += crocodile.velocity;
+            
+            // Keep in bounds
+            if (crocodile.x < 0) {
+                crocodile.x = 0;
+                crocodile.velocity = 0;
+            } else if (crocodile.x > canvas.width - crocodile.width) {
+                crocodile.x = canvas.width - crocodile.width;
+                crocodile.velocity = 0;
+            }
+        }
+
+        function updateScore() {
+            document.getElementById('scoreValue').textContent = score;
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('highScore', highScore);
+                document.getElementById('highScoreValue').textContent = highScore;
+            }
+        }
+
+        function drawCrocodile(x, y) {
+            // If image is loaded, draw it
+            if (crocodileImage.complete) {
+                ctx.save();
+                // If moving right, flip the image
+                if (crocodile.direction === 1) {
+                    ctx.scale(-1, 1);
+                    ctx.drawImage(crocodileImage, -x - crocodile.width, y, crocodile.width, crocodile.height);
+                } else {
+                    ctx.drawImage(crocodileImage, x, y, crocodile.width, crocodile.height);
+                }
+                ctx.restore();
+            }
+        }
+
+        function drawBomb(x, y) {
+            // Add glow effect
+            ctx.shadowColor = 'rgba(255, 0, 0, 0.5)';
+            ctx.shadowBlur = 10;
+            
+            // Draw bomb body
+            ctx.fillStyle = '#111'; // Darker color
+            ctx.beginPath();
+            ctx.arc(x + 15, y + 15, 12, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Add highlight
+            const gradient = ctx.createRadialGradient(
+                x + 12, y + 12, 0,
+                x + 15, y + 15, 12
+            );
+            gradient.addColorStop(0, 'rgba(100, 100, 100, 0.5)');
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(x + 15, y + 15, 12, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw fuse
+            ctx.shadowBlur = 0; // Reset shadow for fuse
+            ctx.strokeStyle = '#8B4513';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(x + 15, y + 3);
+            ctx.lineTo(x + 15, y + 15);
+            ctx.stroke();
+            
+            // Draw spark with glow
+            ctx.shadowColor = '#FFD700';
+            ctx.shadowBlur = 15;
+            ctx.fillStyle = '#FF4500';
+            ctx.beginPath();
+            ctx.arc(x + 15, y + 3, 3, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Reset shadow
+            ctx.shadowBlur = 0;
+        }
+
+        function update() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw background
+            if (backgroundImage.complete && backgroundImage.naturalWidth !== 0) {
+                ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+            }
+            
+            // Update crocodile position
+            updateCrocodilePosition();
+            
+            // Draw lives
+            drawLives();
+            
+            // Draw crocodile
+            drawCrocodile(crocodile.x, crocodile.y);
+            
+            // Update and draw coins
+            for (let i = coins.length - 1; i >= 0; i--) {
+                const coin = coins[i];
+                coin.y += coin.speed;
+                
+                // Draw coin with gradient
+                const gradient = ctx.createRadialGradient(
+                    coin.x + coin.width/2, 
+                    coin.y + coin.height/2, 
+                    0,
+                    coin.x + coin.width/2, 
+                    coin.y + coin.height/2, 
+                    coin.width/2
+                );
+                gradient.addColorStop(0, '#FFD700');
+                gradient.addColorStop(0.5, '#DAA520');
+                gradient.addColorStop(1, '#B8860B');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(coin.x + coin.width/2, coin.y + coin.height/2, coin.width/2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.strokeStyle = '#8B4513';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(coin.x + coin.width/2, coin.y + coin.height/2, coin.width/2, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                const shineGradient = ctx.createRadialGradient(
+                    coin.x + coin.width/3, 
+                    coin.y + coin.height/3, 
+                    0,
+                    coin.x + coin.width/3, 
+                    coin.y + coin.height/3, 
+                    coin.width/4
+                );
+                shineGradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+                shineGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                
+                ctx.fillStyle = shineGradient;
+                ctx.beginPath();
+                ctx.arc(coin.x + coin.width/3, coin.y + coin.height/3, coin.width/4, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = '#8B4513';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('$', coin.x + coin.width/2, coin.y + coin.height/2);
+                
+                // Check coin collision
+                if (coin.y + coin.height > crocodile.y &&
+                    coin.x < crocodile.x + crocodile.width &&
+                    coin.x + coin.width > crocodile.x) {
+                    coins.splice(i, 1);
+                    score += 10;
+                    updateScore();
+                }
+                
+                if (coin.y > canvas.height) {
+                    coins.splice(i, 1);
+                }
+            }
+
+            // Update and draw bombs
+            for (let i = bombs.length - 1; i >= 0; i--) {
+                const bomb = bombs[i];
+                bomb.y += bomb.speed;
+                
+                drawBomb(bomb.x, bomb.y);
+                
+                // Check bomb collision
+                if (bomb.y + bomb.height > crocodile.y &&
+                    bomb.x < crocodile.x + crocodile.width &&
+                    bomb.x + bomb.width > crocodile.x) {
+                    bombs.splice(i, 1);
+                    lives--;
+                    if (lives <= 0) {
+                        // Game over
+                        clearInterval(gameLoop);
+                        gameStarted = false;
+                        document.getElementById('finalScore').textContent = score;
+                        document.querySelector('.game-over-overlay').style.display = 'flex';
+                    }
+                }
+                
+                if (bomb.y > canvas.height) {
+                    bombs.splice(i, 1);
+                }
+            }
+        }
+
+        // Initialize game when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initGame();
+            document.getElementById('highScoreValue').textContent = highScore;
+        });
+
+        // Scroll functionality
+        function scrollToGame() {
+            document.getElementById('play').scrollIntoView({ behavior: 'smooth' });
+            if (!gameStarted) {
+                initGame();
+            }
+        }
+
+        // Add restart game function
+        function restartGame() {
+            // Hide game over overlay
+            document.querySelector('.game-over-overlay').style.display = 'none';
+            
+            // Reset game state
+            score = 0;
+            lives = 3;
+            coins = [];
+            bombs = [];
+            crocodile.x = 400;
+            crocodile.velocity = 0;
+            updateScore();
+            
+            // Start game
+            gameStarted = true;
+            gameLoop = setInterval(update, 1000/60);
+        }
+    </script>
+</body>
+</html>        

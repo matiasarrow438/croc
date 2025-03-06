@@ -6,6 +6,10 @@
     <title>$CROC</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="loading-screen">
@@ -35,6 +39,9 @@
                     <a href="#" target="_blank" class="social-icon">
                         <i class="fab fa-telegram"></i>
                     </a>
+                    <a href="https://pump.fun" target="_blank" class="social-icon">
+                        <img src="assets/pumpfun.png" alt="Pump.fun" class="pumpfun-icon">
+                    </a>
                 </div>
             </div>
             <button class="menu-toggle">☰</button>
@@ -42,37 +49,19 @@
     </nav>
 
     <main>
-        <section id="home" class="hero-section">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>$CROC</h1>
-                    <p class="hero-subtitle">The Most Savage Memecoin in the Crypto Jungle</p>
-                </div>
-                <div class="hero-buttons">
-                    <button class="glow-button" onclick="window.open('https://pump.fun/', '_blank')">
-                        <span class="button-icon">💰</span>
-                        Buy Now
-                    </button>
-                    <button class="play-button" onclick="scrollToGame()">
-                        <span class="button-icon">🎮</span>
-                        Play Game
-                    </button>
-                </div>
-                <div class="contract-section">
-                    <div class="contract-label">CA:</div>
-                    <div class="contract-address">0x1234...5678</div>
-                    <button class="copy-ca-button" onclick="copyContract()">
-                        <span class="button-icon">📋</span>
-                        Copy CA
-                    </button>
-                </div>
-            </div>
-            <div class="hero-visual">
-            </div>
-        </section>
-
         <section id="play" class="game-section">
             <div class="game-container">
+                <div class="contract-display">
+                    <div class="ticker">$CROC</div>
+                    <div class="contract-info">
+                        <span class="contract-label">OFFICIAL CA:</span>
+                        <span class="contract-address">0x1234...5678</span>
+                        <button class="copy-ca-button" onclick="copyContract()">
+                            <i class="fas fa-copy"></i>
+                            Copy
+                        </button>
+                    </div>
+                </div>
                 <div class="game-header">
                     <h2>CATCH THE COINS</h2>
                     <p>Use ← → arrows to move the croc and catch falling coins!</p>
@@ -120,13 +109,13 @@
                 </div>
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                        <img src="assets/gallery/meme1.png" alt="Croc Meme 1">
+                        <img src="assets/croclife.webp" alt="Croc Meme 1">
                         <div class="gallery-overlay">
                             <span class="gallery-caption">Croc Life</span>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="assets/gallery/meme2.png" alt="Croc Meme 2">
+                        <img src="assets/moon.webp" alt="Croc Meme 4">
                         <div class="gallery-overlay">
                             <span class="gallery-caption">To The Moon</span>
                         </div>
@@ -138,9 +127,33 @@
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="assets/gallery/meme4.png" alt="Croc Meme 4">
+                        <img src="assets/lastmeme.webp" alt="Croc Meme 4">
                         <div class="gallery-overlay">
                             <span class="gallery-caption">HODL</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/moonsoon.webp" alt="Croc Meme 5">
+                        <div class="gallery-overlay">
+                            <span class="gallery-caption">Moon Soon</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/pumpit.webp" alt="Croc Meme 6">
+                        <div class="gallery-overlay">
+                            <span class="gallery-caption">Pump It</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/greencandles.webp" alt="Croc Meme 7">
+                        <div class="gallery-overlay">
+                            <span class="gallery-caption">Green Candles</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/bullish.webp" alt="Croc Meme 8">
+                        <div class="gallery-overlay">
+                            <span class="gallery-caption">Bullish</span>
                         </div>
                     </div>
                 </div>
@@ -236,21 +249,6 @@
                 }
             });
         });
-
-        // Contract functionality
-        const CONTRACT_ADDRESS = "0x1234...5678";
-        function copyContract() {
-            navigator.clipboard.writeText(CONTRACT_ADDRESS).then(() => {
-                const button = document.querySelector('.copy-ca-button');
-                const originalContent = button.innerHTML;
-                button.innerHTML = '<span class="button-icon">✓</span> CA Copied';
-                button.classList.add('copied');
-                setTimeout(() => {
-                    button.innerHTML = originalContent;
-                    button.classList.remove('copied');
-                }, 1500);
-            });
-        }
 
         // Game functionality
         let canvas, ctx;
@@ -747,6 +745,20 @@
                 setTabActive(true);
             }
         });
+
+        // Add copyContract function
+        function copyContract() {
+            const contractAddress = "0x1234...5678";
+            navigator.clipboard.writeText(contractAddress).then(() => {
+                const button = document.querySelector('.copy-ca-button');
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
     </script>
 </body>
 </html>        

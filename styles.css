@@ -599,7 +599,7 @@ body {
 
 @media (max-width: 768px) {
     .game-section {
-        padding: 4rem 0 1rem;
+        padding: 4rem 0 0;
         min-height: auto;
     }
 
@@ -609,12 +609,42 @@ body {
     }
 
     .game-wrapper {
-        width: 95%;
+        width: 100%;
         max-width: none;
         aspect-ratio: auto;
-        height: calc(100vh - 200px); /* Adjust height based on viewport */
-        margin: 0 auto;
-        border-radius: 10px;
+        height: 75vh;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .game-header {
+        margin-bottom: 0.5rem;
+        padding: 0 1rem;
+    }
+
+    .mobile-controls {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 2rem;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+    }
+
+    .control-button {
+        width: 55px;
+        height: 55px;
+        opacity: 0.9;
+    }
+
+    .game-overlay {
+        top: 1rem;
+        left: 1rem;
+        gap: 1rem;
     }
 
     #gameCanvas {
@@ -623,15 +653,6 @@ body {
         object-fit: contain;
         image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
-    }
-
-    .game-header {
-        margin-bottom: 1rem;
-    }
-
-    .game-header h2 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
     }
 
     .ticker {
@@ -660,24 +681,6 @@ body {
         font-size: 0.8rem;
         padding: 0.3rem 0.6rem;
         background: rgba(0, 0, 0, 0.8);
-    }
-
-    .game-overlay {
-        top: 0.5rem;
-        left: 0.5rem;
-        gap: 0.8rem;
-        z-index: 10;
-    }
-
-    .mobile-controls {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 1rem;
-        display: flex;
-        justify-content: space-between;
-        padding: 0 2rem;
-        z-index: 1000;
     }
 }
 
@@ -948,23 +951,21 @@ body {
     }
 
     .game-section {
-        padding: 3rem 0 1rem;
+        padding: 3.5rem 0 0;
     }
 
     .game-wrapper {
-        width: 98%;
-        height: calc(100vh - 180px);
+        width: 100%;
+        height: 70vh;
     }
 
     .mobile-controls {
-        padding: 0 1rem;
-        bottom: 0.5rem;
+        padding: 0.5rem 1.5rem;
     }
 
     .control-button {
-        width: 45px;
-        height: 45px;
-        font-size: 1.2rem;
+        width: 50px;
+        height: 50px;
     }
 
     .game-header h2 {
@@ -1394,14 +1395,14 @@ body {
 /* Landscape mode optimization */
 @media (max-height: 500px) and (orientation: landscape) {
     .game-section {
-        padding: 0.5rem;
+        padding: 0;
         height: 100vh;
     }
 
     .game-wrapper {
-        width: 98%;
-        height: 90vh;
-        margin: 0 auto;
+        width: 100%;
+        height: 100vh;
+        margin: 0;
     }
 
     .game-header {
@@ -1409,13 +1410,8 @@ body {
     }
 
     .mobile-controls {
-        bottom: 0.5rem;
-        padding: 0 1rem;
-    }
-
-    .control-button {
-        width: 40px;
-        height: 40px;
+        bottom: 0;
+        padding: 0.5rem 2rem;
     }
 }
 

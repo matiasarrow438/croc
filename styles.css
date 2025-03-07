@@ -942,50 +942,52 @@ body {
 
     /* Tokenomics Mobile Adjustments */
     .tokenomics-section {
-        padding: 2rem 1rem;
+        padding: 1rem;
     }
 
     .tokenomics-header {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     .tokenomics-header h2 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
     }
 
     .tokenomics-header p {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
     }
 
     .tokenomics-grid {
-        gap: 0.8rem;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
     }
 
     .tokenomics-item {
-        padding: 0.8rem;
-        min-height: auto;
+        padding: 0.5rem;
+        gap: 0.3rem;
     }
 
     .tokenomics-icon {
-        font-size: 1.3rem;
-        margin-bottom: 0.2rem;
+        font-size: 1rem;
+        margin-bottom: 0.1rem;
     }
 
     .tokenomics-item h3 {
-        font-size: 0.9rem;
-        margin-bottom: 0.2rem;
+        font-size: 0.8rem;
+        margin-bottom: 0.1rem;
+        line-height: 1;
     }
 
     .tokenomics-item p {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         margin: 0;
-        line-height: 1.2;
+        line-height: 1.1;
     }
 
     .tokenomics-item .tokenomics-subtitle {
-        font-size: 0.7rem;
-        margin-top: 0.2rem;
+        font-size: 0.6rem;
+        margin-top: 0.1rem;
     }
 
     .features-grid {

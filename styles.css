@@ -720,18 +720,90 @@ body {
 
 /* Mobile Controls */
 .mobile-controls {
-    display: flex;
-    padding: 0 1.5rem;
-    bottom: 1rem;
-    position: fixed; /* Change to fixed positioning */
+    display: none; /* Hidden by default (for desktop) */
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.5rem 2rem;
     z-index: 1000;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    justify-content: space-between;
+    align-items: center;
 }
 
 .control-button {
-    width: 50px;
-    height: 50px;
-    opacity: 0.8;
-    background: rgba(0, 255, 136, 0.3);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--primary);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.control-button:active {
+    transform: scale(0.95);
+    background: rgba(0, 255, 136, 0.2);
+}
+
+/* Mobile Specific Controls */
+@media (max-width: 768px) {
+    .mobile-controls {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem 2rem;
+        bottom: 1rem;
+    }
+
+    .control-button {
+        box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+    }
+
+    .control-button i {
+        font-size: 2rem;
+        color: var(--primary);
+    }
+}
+
+@media (max-width: 380px) {
+    .mobile-controls {
+        padding: 0.8rem 1.5rem;
+        bottom: 0.8rem;
+    }
+
+    .control-button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .control-button i {
+        font-size: 1.5rem;
+    }
+}
+
+/* Landscape mode adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .mobile-controls {
+        bottom: 0.5rem;
+        padding: 0.5rem 3rem; /* Wider padding in landscape */
+    }
+
+    .control-button {
+        width: 45px;
+        height: 45px;
+    }
+
+    .control-button i {
+        font-size: 1.3rem;
+    }
 }
 
 /* Mobile Optimization */

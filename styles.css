@@ -950,13 +950,21 @@ body {
     }
 
     .tokenomics-header h2 {
-        font-size: 0.9rem;
+        font-size: 0.7rem;
         margin-bottom: 0.3rem;
-        letter-spacing: 0;
+        letter-spacing: -0.02em;
+        width: 100%;
+        white-space: nowrap;
     }
 
     .tokenomics-header p {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
+    }
+
+    .tokenomics-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 0.5rem;
     }
 
     .tokenomics-grid {
@@ -1063,12 +1071,16 @@ body {
 
     /* Tokenomics Extra Small Screen Adjustments */
     .tokenomics-header h2 {
-        font-size: 0.8rem;
-        letter-spacing: 0;
+        font-size: 0.65rem;
+        letter-spacing: -0.03em;
     }
 
     .tokenomics-header p {
-        font-size: 0.8rem;
+        font-size: 0.6rem;
+    }
+
+    .tokenomics-container {
+        padding: 0 0.3rem;
     }
 
     .tokenomics-item {

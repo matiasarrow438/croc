@@ -942,34 +942,46 @@ body {
 
     /* Tokenomics Mobile Adjustments */
     .tokenomics-section {
-        padding: 1rem;
-    }
-
-    .tokenomics-header {
-        margin-bottom: 1rem;
-    }
-
-    .tokenomics-header h2 {
-        font-size: 0.7rem;
-        margin-bottom: 0.3rem;
-        letter-spacing: -0.02em;
-        width: 100%;
-        white-space: nowrap;
-    }
-
-    .tokenomics-header p {
-        font-size: 0.65rem;
+        padding: 1rem 0;
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
     }
 
     .tokenomics-container {
         width: 100%;
-        max-width: 100%;
-        padding: 0 0.5rem;
+        padding: 0;
+        margin: 0;
+    }
+
+    .tokenomics-header {
+        width: 100%;
+        margin: 0 0 1rem 0;
+        padding: 0 5px;
+    }
+
+    .tokenomics-header h2 {
+        font-size: 14px !important;
+        margin: 0 0 0.3rem 0;
+        padding: 0;
+        letter-spacing: -0.5px;
+        line-height: 1;
+        white-space: nowrap;
+        overflow: visible;
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+    .tokenomics-header p {
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        line-height: 1.2;
     }
 
     .tokenomics-grid {
-        gap: 0.5rem;
-        margin-bottom: 1rem;
+        padding: 0 10px;
     }
 
     .tokenomics-item {
@@ -1071,12 +1083,12 @@ body {
 
     /* Tokenomics Extra Small Screen Adjustments */
     .tokenomics-header h2 {
-        font-size: 0.65rem;
-        letter-spacing: -0.03em;
+        font-size: 12px !important;
+        letter-spacing: -1px;
     }
 
     .tokenomics-header p {
-        font-size: 0.6rem;
+        font-size: 10px;
     }
 
     .tokenomics-container {
@@ -1313,16 +1325,22 @@ body {
 .tokenomics-section {
     padding: 4rem 2rem;
     background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+    width: 100%;
+    overflow: hidden;
 }
 
 .tokenomics-container {
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
 }
 
 .tokenomics-header {
     text-align: center;
     margin-bottom: 50px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .tokenomics-header h2 {
@@ -1334,6 +1352,7 @@ body {
     background-clip: text;
     color: transparent;
     text-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+    width: 100%;
 }
 
 .tokenomics-header p {

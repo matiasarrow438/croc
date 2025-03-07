@@ -950,8 +950,9 @@ body {
     }
 
     .tokenomics-header h2 {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
         margin-bottom: 0.3rem;
+        letter-spacing: 0;
     }
 
     .tokenomics-header p {
@@ -1062,7 +1063,8 @@ body {
 
     /* Tokenomics Extra Small Screen Adjustments */
     .tokenomics-header h2 {
-        font-size: 1.3rem;
+        font-size: 0.8rem;
+        letter-spacing: 0;
     }
 
     .tokenomics-header p {

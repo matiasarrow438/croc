@@ -817,243 +817,119 @@ body {
 @media (max-width: 768px) {
     /* Navigation */
     .nav-content {
-        padding: 0.8rem 1rem;
-    }
-
-    .nav-links {
-        position: fixed;
-        top: 60px; /* Height of navbar */
-        left: 0;
-        right: 0;
-        background: rgba(10, 10, 10, 0.98);
-        backdrop-filter: blur(10px);
-        padding: 1.5rem;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: all 0.3s ease;
-        z-index: 999;
-    }
-
-    .nav-links.active {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    .menu-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        color: var(--text);
-        font-size: 1.5rem;
-        cursor: pointer;
-        padding: 0.5rem;
-        z-index: 1000;
-    }
-
-    .social-links {
-        margin: 1rem 0;
-        padding: 1rem 0;
-        border-left: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        width: 100%;
-        justify-content: center;
-        gap: 2rem;
-    }
-
-    /* Hero Section */
-    .hero-section {
-        padding: 5rem 1rem 3rem;
-        min-height: 100vh;
-    }
-
-    .hero-text h1 {
-        font-size: clamp(2.5rem, 8vw, 4rem);
-        line-height: 1.2;
-        margin-bottom: 1.5rem;
-    }
-
-    .hero-subtitle {
-        font-size: clamp(1rem, 4vw, 1.2rem);
-        margin-bottom: 2rem;
-        padding: 0 0.5rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-        gap: 1rem;
-    }
-
-    .glow-button, .play-button {
-        width: 100%;
-        justify-content: center;
         padding: 1rem;
     }
 
-    /* Contract Section */
-    .contract-section {
-        flex-direction: column;
-        gap: 0.5rem;
-        margin: 1.5rem auto;
-        max-width: 100%;
-        padding: 0.5rem;
+    .nav-links a {
+        font-size: 0.9rem;
+        letter-spacing: 0.01em;
     }
 
-    .contract-address {
-        font-size: 0.75rem;
-        max-width: 150px;
-    }
-
-    /* Game Section */
-    .game-section {
-        padding: 5rem 1rem 2rem;
-    }
-
-    .game-header {
+    /* Hero Section */
+    .hero-text h1 {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        line-height: 1.3;
         margin-bottom: 2rem;
     }
 
+    .hero-subtitle {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        margin-bottom: 2.5rem;
+        padding: 0 1rem;
+        line-height: 1.4;
+    }
+
+    /* Game Section */
+    .game-header h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.02em;
+    }
+
     .ticker {
-        font-size: clamp(2rem, 7vw, 3rem);
-    }
-
-    .game-wrapper {
-        aspect-ratio: 16/9;
-        border-radius: 10px;
-    }
-
-    .game-overlay {
-        top: 0.5rem;
-        left: 0.5rem;
-        gap: 0.8rem;
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+        letter-spacing: 0.02em;
     }
 
     .score, .high-score {
-        font-size: 0.9rem;
-        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+        letter-spacing: 0.02em;
     }
 
-    /* Gallery Section */
-    .gallery-section {
-        padding: 3rem 1rem;
+    /* Contract Display */
+    .contract-label {
+        font-size: 0.8rem;
     }
 
-    .gallery-header h2 {
-        font-size: clamp(2rem, 6vw, 2.5rem);
+    .contract-address {
+        font-size: 0.7rem;
+        max-width: 120px;
     }
 
-    .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0.5rem;
-    }
-
-    .gallery-item {
-        max-width: 100%;
-    }
-
-    .gallery-overlay {
-        transform: translateY(0);
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-    }
-
-    .gallery-caption {
-        font-size: 1rem;
+    .copy-ca-button {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
     }
 
     /* Tokenomics Section */
-    .tokenomics-section {
-        padding: 3rem 1rem;
-    }
-
     .tokenomics-header h2 {
-        font-size: clamp(2rem, 6vw, 2.5rem);
-    }
-
-    .tokenomics-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-    }
-
-    .tokenomics-item {
-        padding: 1.5rem;
+        font-size: clamp(1.8rem, 5vw, 2.2rem);
+        letter-spacing: 0.02em;
     }
 
     .tokenomics-item h3 {
-        font-size: 1.2rem;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-    }
-
-    /* Overlays */
-    .instructions-content,
-    .game-over-content {
-        width: 90%;
-        padding: 1.5rem;
-        margin: 1rem;
-    }
-
-    .instructions-content h2,
-    .game-over-content h2 {
-        font-size: 1.8rem;
-    }
-
-    .instructions-list p {
         font-size: 1rem;
-        margin: 0.8rem 0;
+        letter-spacing: 0.02em;
     }
 
-    .got-it-button,
-    .try-again-button {
-        width: 100%;
-        padding: 0.8rem;
+    .tokenomics-item p {
+        font-size: 0.9rem;
+        line-height: 1.4;
     }
 }
 
 /* Small phones optimization */
 @media (max-width: 380px) {
     .hero-text h1 {
-        font-size: clamp(2rem, 6vw, 2.5rem);
+        font-size: clamp(1.8rem, 5vw, 2rem);
     }
 
     .hero-subtitle {
-        font-size: 0.9rem;
-    }
-
-    .game-section {
-        padding: 3.5rem 0 0;
-    }
-
-    .game-wrapper {
-        width: 100%;
-        height: 70vh;
-    }
-
-    .mobile-controls {
-        padding: 0.5rem 1.5rem;
-    }
-
-    .control-button {
-        width: 50px;
-        height: 50px;
+        font-size: 0.8rem;
     }
 
     .game-header h2 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.01em;
+    }
+
+    .ticker {
+        font-size: 1.6rem;
     }
 
     .score, .high-score {
         font-size: 0.7rem;
-        padding: 0.2rem 0.5rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .glow-button, .play-button {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+
+    .contract-label {
+        font-size: 0.7rem;
+    }
+
+    .contract-address {
+        font-size: 0.65rem;
+        max-width: 100px;
+    }
+
+    .copy-ca-button {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.4rem;
     }
 }
 

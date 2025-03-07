@@ -818,11 +818,12 @@ body {
     /* Navigation */
     .nav-content {
         padding: 0.8rem 1rem;
+        height: 60px; /* Fixed height for navbar */
     }
 
     .nav-links {
         position: fixed;
-        top: 60px;
+        top: 60px; /* Match navbar height */
         left: 0;
         right: 0;
         background: rgba(10, 10, 10, 0.98);
@@ -862,6 +863,27 @@ body {
         z-index: 1000;
     }
 
+    /* Game Section Mobile Adjustments */
+    .game-section {
+        padding-top: 80px; /* Increased padding to prevent overlap */
+        min-height: auto;
+    }
+
+    .contract-display {
+        padding-top: 1rem;
+    }
+
+    .ticker {
+        font-size: 2.5rem; /* Slightly smaller for better mobile fit */
+        margin-bottom: 0.5rem;
+    }
+
+    .contract-info {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
     /* Instructions Overlay Mobile Fix */
     .instructions-overlay {
         position: fixed;
@@ -898,16 +920,6 @@ body {
         margin-top: 0.5rem;
     }
 
-    /* Game Section Mobile Adjustments */
-    .game-section {
-        padding-top: 60px; /* Match navbar height */
-    }
-
-    .game-header h2 {
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-    }
-
     /* Game Over Content Mobile Fix */
     .game-over-content {
         padding: 1.5rem;
@@ -927,6 +939,71 @@ body {
         padding: 0.8rem;
         font-size: 1rem;
     }
+
+    /* Tokenomics Mobile Adjustments */
+    .tokenomics-section {
+        padding: 3rem 1rem;
+    }
+
+    .tokenomics-header h2 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .tokenomics-header p {
+        font-size: 1rem;
+    }
+
+    .tokenomics-grid {
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .tokenomics-item {
+        padding: 20px 15px;
+        gap: 5px;
+    }
+
+    .tokenomics-icon {
+        font-size: 2rem;
+        margin-bottom: 3px;
+    }
+
+    .tokenomics-item h3 {
+        font-size: 1.1rem;
+        margin-bottom: 3px;
+    }
+
+    .tokenomics-item p {
+        font-size: 0.9rem;
+    }
+
+    .tokenomics-item .tokenomics-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .features-grid {
+        gap: 15px;
+    }
+
+    .feature-card {
+        padding: 20px 15px;
+    }
+
+    .feature-icon {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+
+    .feature-card p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
 }
 
 /* Small phones optimization */
@@ -936,6 +1013,19 @@ body {
     }
 
     .nav-links a {
+        font-size: 0.8rem;
+    }
+
+    .game-section {
+        padding-top: 70px; /* Slightly less padding for very small screens */
+    }
+
+    .ticker {
+        font-size: 2.2rem;
+    }
+
+    .contract-info {
+        padding: 0.3rem 0.6rem;
         font-size: 0.8rem;
     }
 
@@ -956,6 +1046,53 @@ body {
     .got-it-button {
         padding: 0.6rem 1.2rem;
         font-size: 0.85rem;
+    }
+
+    /* Tokenomics Extra Small Screen Adjustments */
+    .tokenomics-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .tokenomics-header p {
+        font-size: 0.9rem;
+    }
+
+    .tokenomics-item {
+        padding: 15px 10px;
+    }
+
+    .tokenomics-icon {
+        font-size: 1.8rem;
+    }
+
+    .tokenomics-item h3 {
+        font-size: 1rem;
+    }
+
+    .tokenomics-item p {
+        font-size: 0.8rem;
+    }
+
+    .tokenomics-item .tokenomics-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .feature-card {
+        padding: 15px 10px;
+    }
+
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .feature-card h3 {
+        font-size: 1rem;
+    }
+
+    .feature-card p {
+        font-size: 0.8rem;
+        line-height: 1.3;
     }
 }
 
@@ -1401,13 +1538,4 @@ body {
     .game-wrapper {
         height: 85vh;
     }
-}
-
-/* Mobile viewport fix */
-@viewport {
-    width: device-width;
-    zoom: 1.0;
-    min-zoom: 1.0;
-    max-zoom: 1.0;
-    user-zoom: fixed;
 }

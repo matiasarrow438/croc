@@ -817,119 +817,142 @@ body {
 @media (max-width: 768px) {
     /* Navigation */
     .nav-content {
+        padding: 0.8rem 1rem;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(10px);
         padding: 1rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translateY(-150%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
     }
 
     .nav-links a {
         font-size: 0.9rem;
         letter-spacing: 0.01em;
+        padding: 0.5rem;
     }
 
-    /* Hero Section */
-    .hero-text h1 {
-        font-size: clamp(2rem, 6vw, 3.5rem);
-        line-height: 1.3;
-        margin-bottom: 2rem;
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 1.3rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        z-index: 1000;
     }
 
-    .hero-subtitle {
-        font-size: clamp(0.9rem, 3vw, 1.1rem);
-        margin-bottom: 2.5rem;
-        padding: 0 1rem;
-        line-height: 1.4;
+    /* Instructions Overlay Mobile Fix */
+    .instructions-overlay {
+        position: fixed;
+        padding: 1rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
-    /* Game Section */
-    .game-header h2 {
+    .instructions-content {
+        padding: 1.5rem;
+        margin: 1rem;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .instructions-content h2 {
         font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
     }
 
-    .ticker {
-        font-size: clamp(1.8rem, 5vw, 2.5rem);
-        letter-spacing: 0.02em;
-    }
-
-    .score, .high-score {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
-        letter-spacing: 0.02em;
-    }
-
-    /* Contract Display */
-    .contract-label {
-        font-size: 0.8rem;
-    }
-
-    .contract-address {
-        font-size: 0.7rem;
-        max-width: 120px;
-    }
-
-    .copy-ca-button {
-        font-size: 0.7rem;
-        padding: 0.3rem 0.5rem;
-    }
-
-    /* Tokenomics Section */
-    .tokenomics-header h2 {
-        font-size: clamp(1.8rem, 5vw, 2.2rem);
-        letter-spacing: 0.02em;
-    }
-
-    .tokenomics-item h3 {
-        font-size: 1rem;
-        letter-spacing: 0.02em;
-    }
-
-    .tokenomics-item p {
+    .instructions-list p {
         font-size: 0.9rem;
-        line-height: 1.4;
+        margin: 0.8rem 0;
+    }
+
+    .got-it-button {
+        position: sticky;
+        bottom: 1rem;
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+        margin-top: 1rem;
+    }
+
+    /* Game Section Mobile Adjustments */
+    .game-section {
+        padding-top: 60px; /* Match navbar height */
+    }
+
+    .game-header h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Game Over Content Mobile Fix */
+    .game-over-content {
+        padding: 1.5rem;
+        width: 85%;
+    }
+
+    .game-over-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .game-over-content p {
+        font-size: 1rem;
+    }
+
+    .try-again-button {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
     }
 }
 
 /* Small phones optimization */
 @media (max-width: 380px) {
-    .hero-text h1 {
-        font-size: clamp(1.8rem, 5vw, 2rem);
+    .nav-content {
+        padding: 0.6rem 0.8rem;
     }
 
-    .hero-subtitle {
+    .nav-links a {
         font-size: 0.8rem;
     }
 
-    .game-header h2 {
-        font-size: 1.1rem;
-        letter-spacing: 0.01em;
+    .instructions-content {
+        padding: 1rem;
+        margin: 0.5rem;
     }
 
-    .ticker {
-        font-size: 1.6rem;
+    .instructions-content h2 {
+        font-size: 1.3rem;
     }
 
-    .score, .high-score {
-        font-size: 0.7rem;
-        padding: 0.3rem 0.6rem;
+    .instructions-list p {
+        font-size: 0.85rem;
     }
 
-    .glow-button, .play-button {
+    .got-it-button {
+        padding: 0.7rem;
         font-size: 0.9rem;
-        padding: 0.8rem;
-    }
-
-    .contract-label {
-        font-size: 0.7rem;
-    }
-
-    .contract-address {
-        font-size: 0.65rem;
-        max-width: 100px;
-    }
-
-    .copy-ca-button {
-        font-size: 0.65rem;
-        padding: 0.2rem 0.4rem;
     }
 }
 
@@ -1375,4 +1398,13 @@ body {
     .game-wrapper {
         height: 85vh;
     }
+}
+
+/* Mobile viewport fix */
+@viewport {
+    width: device-width;
+    zoom: 1.0;
+    min-zoom: 1.0;
+    max-zoom: 1.0;
+    user-zoom: fixed;
 }

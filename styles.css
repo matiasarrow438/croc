@@ -385,7 +385,7 @@ body {
 /* Game Section */
 .game-section {
     min-height: 100vh;
-    padding: 6rem 2rem 2rem;
+    padding: 8rem 2rem 4rem;
     background: var(--surface);
     position: relative;
     display: flex;
@@ -506,7 +506,7 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: fill;
+    object-fit: contain;
     touch-action: none;
 }
 
@@ -611,6 +611,7 @@ body {
     .game-wrapper {
         width: 100%;
         max-width: none;
+        aspect-ratio: auto;
         height: 75vh;
         margin: 0;
         border-radius: 0;
@@ -648,9 +649,11 @@ body {
     }
 
     #gameCanvas {
-        object-fit: fill;
         width: 100%;
         height: 100%;
+        object-fit: contain;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
     }
 
     .ticker {

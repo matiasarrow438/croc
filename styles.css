@@ -698,7 +698,7 @@ body {
     background: rgba(0, 255, 136, 0.4);
 }
 
-/* Responsive Design */
+/* Mobile Optimization */
 @media (max-width: 768px) {
     /* Navigation */
     .nav-content {
@@ -706,56 +706,79 @@ body {
     }
 
     .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 60px; /* Height of navbar */
         left: 0;
         right: 0;
-        background: rgba(10, 10, 10, 0.95);
+        background: rgba(10, 10, 10, 0.98);
         backdrop-filter: blur(10px);
-        padding: 1rem;
+        padding: 1.5rem;
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
+        gap: 1.5rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 999;
     }
 
     .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .menu-toggle {
         display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        z-index: 1000;
     }
 
     .social-links {
-        margin: 0.5rem 0;
-        padding: 0.5rem 0;
+        margin: 1rem 0;
+        padding: 1rem 0;
         border-left: none;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         width: 100%;
         justify-content: center;
+        gap: 2rem;
     }
 
     /* Hero Section */
     .hero-section {
-        padding: 1.5rem 1rem;
+        padding: 5rem 1rem 3rem;
+        min-height: 100vh;
     }
 
     .hero-text h1 {
-        font-size: 3rem;
+        font-size: clamp(2.5rem, 8vw, 4rem);
         line-height: 1.2;
+        margin-bottom: 1.5rem;
     }
 
     .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: clamp(1rem, 4vw, 1.2rem);
         margin-bottom: 2rem;
-        padding: 0 1rem;
+        padding: 0 0.5rem;
     }
 
     .hero-buttons {
+        flex-direction: column;
         width: 100%;
+        gap: 1rem;
     }
 
-    .glow-button {
+    .glow-button, .play-button {
         width: 100%;
         justify-content: center;
+        padding: 1rem;
     }
 
     /* Contract Section */
@@ -763,44 +786,42 @@ body {
         flex-direction: column;
         gap: 0.5rem;
         margin: 1.5rem auto;
-        max-width: 90%;
+        max-width: 100%;
+        padding: 0.5rem;
     }
 
     .contract-address {
-        width: 100%;
-        text-align: center;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        max-width: 150px;
     }
 
     /* Game Section */
     .game-section {
-        padding: 6rem 1rem 3rem;
-        min-height: calc(100vh - 60px);
+        padding: 5rem 1rem 2rem;
     }
 
     .game-header {
         margin-bottom: 2rem;
     }
 
+    .ticker {
+        font-size: clamp(2rem, 7vw, 3rem);
+    }
+
     .game-wrapper {
-        border-radius: 15px;
-        margin: 0 auto;
+        aspect-ratio: 16/9;
+        border-radius: 10px;
     }
 
     .game-overlay {
         top: 0.5rem;
         left: 0.5rem;
-        gap: 1rem;
+        gap: 0.8rem;
     }
 
     .score, .high-score {
         font-size: 0.9rem;
         padding: 0.3rem 0.8rem;
-    }
-
-    .mobile-controls {
-        display: flex;
-        bottom: 1rem;
     }
 
     /* Gallery Section */
@@ -809,18 +830,26 @@ body {
     }
 
     .gallery-header h2 {
-        font-size: 2rem;
+        font-size: clamp(2rem, 6vw, 2.5rem);
     }
 
     .gallery-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
-        padding: 1rem;
+        padding: 0.5rem;
     }
 
     .gallery-item {
-        margin: 0 auto;
-        max-width: 400px;
+        max-width: 100%;
+    }
+
+    .gallery-overlay {
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    }
+
+    .gallery-caption {
+        font-size: 1rem;
     }
 
     /* Tokenomics Section */
@@ -829,28 +858,46 @@ body {
     }
 
     .tokenomics-header h2 {
-        font-size: 2rem;
+        font-size: clamp(2rem, 6vw, 2.5rem);
     }
 
     .tokenomics-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.2rem;
     }
 
     .tokenomics-item {
         padding: 1.5rem;
     }
 
-    .features-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    .tokenomics-item h3 {
+        font-size: 1.2rem;
     }
 
-    /* Instructions and Game Over Overlays */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    /* Game Controls */
+    .mobile-controls {
+        display: flex;
+        padding: 0 1.5rem;
+        bottom: 1.5rem;
+    }
+
+    .control-button {
+        width: 55px;
+        height: 55px;
+        background: rgba(0, 255, 136, 0.25);
+    }
+
+    /* Overlays */
     .instructions-content,
     .game-over-content {
         width: 90%;
         padding: 1.5rem;
+        margin: 1rem;
     }
 
     .instructions-content h2,
@@ -866,22 +913,26 @@ body {
     .got-it-button,
     .try-again-button {
         width: 100%;
-        padding: 0.8rem 1.5rem;
+        padding: 0.8rem;
     }
 }
 
 /* Small phones optimization */
 @media (max-width: 380px) {
     .hero-text h1 {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 6vw, 2.5rem);
     }
 
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .game-header h2 {
         font-size: 1.5rem;
+    }
+
+    .ticker {
+        font-size: clamp(1.8rem, 6vw, 2.2rem);
     }
 
     .mobile-controls {
@@ -889,19 +940,36 @@ body {
     }
 
     .control-button {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+
+    .contract-address {
+        font-size: 0.7rem;
+        max-width: 120px;
     }
 }
 
-/* Touch-friendly hover states */
+/* Touch device optimizations */
 @media (hover: none) {
-    .glow-button:hover,
-    .play-button:hover,
-    .copy-ca-button:hover,
-    .gallery-item:hover .gallery-overlay,
-    .feature-card:hover {
-        transform: none;
+    .social-icon:active,
+    .glow-button:active,
+    .play-button:active,
+    .gallery-item:active,
+    .tokenomics-item:active,
+    .feature-card:active {
+        transform: scale(0.98);
+    }
+
+    .gallery-overlay {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .control-button:active {
+        transform: scale(0.95);
+        background: rgba(0, 255, 136, 0.4);
     }
 }
 

@@ -97,6 +97,14 @@
                             <button class="try-again-button" onclick="restartGame()">Try Again</button>
                         </div>
                     </div>
+                    <div class="mobile-controls">
+                        <button class="control-button" id="leftButton" ontouchstart="handleMobileControl('left', true)" ontouchend="handleMobileControl('left', false)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="control-button" id="rightButton" ontouchstart="handleMobileControl('right', true)" ontouchend="handleMobileControl('right', false)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -758,6 +766,24 @@
                     button.classList.remove('copied');
                 }, 2000);
             });
+        }
+
+        // Mobile Controls Handler
+        function handleMobileControl(direction, isPressed) {
+            // Prevent default touch behavior
+            event.preventDefault();
+            
+            // Update keys state based on touch
+            if (direction === 'left') {
+                keys.left = isPressed;
+            } else if (direction === 'right') {
+                keys.right = isPressed;
+            }
+            
+            // Start game if it hasn't started yet
+            if (!gameStarted && isPressed) {
+                startGame();
+            }
         }
     </script>
 </body>

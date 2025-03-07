@@ -623,21 +623,22 @@ body {
     }
 
     .mobile-controls {
-        position: fixed;
+        position: absolute;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 20px;
         display: flex;
         justify-content: space-between;
-        padding: 0.5rem 2rem;
+        padding: 0 2rem;
         z-index: 1000;
         background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(5px);
+        pointer-events: none;
     }
 
     .control-button {
-        width: 55px;
-        height: 55px;
+        width: 60px;
+        height: 60px;
         opacity: 0.9;
     }
 
@@ -721,16 +722,15 @@ body {
 /* Mobile Controls */
 .mobile-controls {
     display: none; /* Hidden by default (for desktop) */
-    position: fixed;
+    position: absolute; /* Changed from fixed to absolute */
     left: 0;
     right: 0;
-    bottom: 0;
-    padding: 0.5rem 2rem;
+    bottom: 20px; /* Space from bottom of game area */
+    padding: 0 2rem;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
     justify-content: space-between;
     align-items: center;
+    pointer-events: none; /* Allow clicks to pass through the container */
 }
 
 .control-button {
@@ -747,6 +747,7 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
     -webkit-tap-highlight-color: transparent;
+    pointer-events: auto; /* Re-enable pointer events for buttons */
 }
 
 .control-button:active {
@@ -759,8 +760,7 @@ body {
     .mobile-controls {
         display: flex;
         gap: 1rem;
-        padding: 1rem 2rem;
-        bottom: 1rem;
+        padding: 0 2rem;
     }
 
     .control-button {
@@ -775,8 +775,8 @@ body {
 
 @media (max-width: 380px) {
     .mobile-controls {
-        padding: 0.8rem 1.5rem;
-        bottom: 0.8rem;
+        padding: 0 1.5rem;
+        bottom: 15px;
     }
 
     .control-button {
@@ -792,8 +792,8 @@ body {
 /* Landscape mode adjustments */
 @media (max-height: 500px) and (orientation: landscape) {
     .mobile-controls {
-        bottom: 0.5rem;
-        padding: 0.5rem 3rem; /* Wider padding in landscape */
+        bottom: 10px;
+        padding: 0 3rem;
     }
 
     .control-button {

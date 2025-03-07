@@ -1552,3 +1552,56 @@ body {
         height: 85vh;
     }
 }
+
+/* Add these at the top, right after the body styles */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    /* ... existing mobile styles ... */
+
+    /* Fix container widths */
+    .tokenomics-container,
+    .gallery-container,
+    .game-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 1rem;
+        overflow: hidden;
+    }
+
+    .tokenomics-grid,
+    .features-grid {
+        width: 100%;
+        margin: 0 auto 1.5rem;
+    }
+
+    .tokenomics-item,
+    .feature-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Ensure sections don't cause horizontal scroll */
+    .tokenomics-section,
+    .gallery-section,
+    .game-section {
+        width: 100%;
+        max-width: 100vw;
+        overflow: hidden;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 380px) {
+    /* ... existing small phone styles ... */
+
+    .tokenomics-container,
+    .gallery-container {
+        padding: 0 0.8rem;
+    }
+}

@@ -507,7 +507,7 @@ body {
     height: 100%;
     display: block;
     object-fit: contain;
-    touch-action: none; /* Prevents default touch behaviors */
+    touch-action: none;
 }
 
 .token-info-panel {
@@ -599,20 +599,22 @@ body {
 
 @media (max-width: 768px) {
     .game-section {
-        padding: 5rem 0.5rem 2rem;
+        padding: 4rem 0 1rem;
         min-height: auto;
     }
 
     .game-container {
         padding: 0;
+        width: 100%;
     }
 
     .game-wrapper {
-        border-radius: 12px;
-        aspect-ratio: 16/9;
-        width: 100vw; /* Full viewport width */
-        max-height: 80vh; /* Maximum height */
-        margin: 0 -0.5rem; /* Compensate for parent padding */
+        width: 95%;
+        max-width: none;
+        aspect-ratio: auto;
+        height: calc(100vh - 200px); /* Adjust height based on viewport */
+        margin: 0 auto;
+        border-radius: 10px;
     }
 
     #gameCanvas {
@@ -665,6 +667,17 @@ body {
         left: 0.5rem;
         gap: 0.8rem;
         z-index: 10;
+    }
+
+    .mobile-controls {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2rem;
+        z-index: 1000;
     }
 }
 
@@ -935,12 +948,12 @@ body {
     }
 
     .game-section {
-        padding: 4rem 0.25rem 1.5rem;
+        padding: 3rem 0 1rem;
     }
 
     .game-wrapper {
-        aspect-ratio: 16/9;
-        margin: 0 -0.25rem;
+        width: 98%;
+        height: calc(100vh - 180px);
     }
 
     .mobile-controls {
@@ -1381,29 +1394,34 @@ body {
 /* Landscape mode optimization */
 @media (max-height: 500px) and (orientation: landscape) {
     .game-section {
-        padding: 1rem 0.5rem;
+        padding: 0.5rem;
         height: 100vh;
-        display: flex;
-        align-items: center;
     }
 
     .game-wrapper {
-        height: 85vh;
-        aspect-ratio: 16/9;
-        max-width: none;
+        width: 98%;
+        height: 90vh;
+        margin: 0 auto;
     }
 
     .game-header {
-        display: none; /* Hide header in landscape to maximize game space */
+        display: none;
     }
 
     .mobile-controls {
         bottom: 0.5rem;
+        padding: 0 1rem;
     }
 
     .control-button {
         width: 40px;
         height: 40px;
-        font-size: 1rem;
+    }
+}
+
+/* Extra small height devices */
+@media (max-height: 400px) {
+    .game-wrapper {
+        height: 85vh;
     }
 }

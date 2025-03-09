@@ -245,11 +245,27 @@
         
         // Function to play sounds immediately
         function playSound(audio) {
-            // Reset and play immediately
+            // Reset audio to start
             audio.currentTime = 0;
-            const promise = audio.play();
-            if (promise !== undefined) {
-                promise.catch(() => {
+            
+            // For mobile devices, we need to handle the promise
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                const promise = audio.play();
+                if (promise !== undefined) {
+                    promise.catch(() => {
+                        // On mobile, try to play on next user interaction
+                        const playOnTouch = () => {
+                            audio.play().catch(() => {}); // Catch any further errors silently
+                            document.removeEventListener('touchstart', playOnTouch);
+                            document.removeEventListener('click', playOnTouch);
+                        };
+                        document.addEventListener('touchstart', playOnTouch, { once: true });
+                        document.addEventListener('click', playOnTouch, { once: true });
+                    });
+                }
+            } else {
+                // For desktop, use the original behavior
+                audio.play().catch(() => {
                     // If autoplay was prevented, try one more time on user interaction
                     document.addEventListener('click', function tryPlay() {
                         audio.play();
@@ -636,37 +652,77 @@
                 return false;
             }
 
-            if (coin.y + coin.height > crocodile.y &&
-                coin.x < crocodile.x + crocodile.width &&
-                coin.x + coin.width > crocodile.x) {
-                // Play sound first
-                playSound(collectSound);
-                // Then handle other collision effects
-                coins.splice(i, 1);
-                score += 10;
-                updateScore();
-                return true;
+            // More precise collision detection
+            const crocodileHitbox = {
+                left: crocodile.x + 10, // Add small offset from left
+                right: crocodile.x + crocodile.width - 10, // Subtract small offset from right
+                top: crocodile.y + 5, // Add small offset from top
+                bottom: crocodile.y + crocodile.height - 5 // Subtract small offset from bottom
+            };
+
+            const coinHitbox = {
+                left: coin.x + 2,
+                right: coin.x + coin.width - 2,
+                top: coin.y + 2,
+                bottom: coin.y + coin.height - 2
+            };
+
+            // Check if coin is actually touching the crocodile
+            if (coinHitbox.bottom > crocodileHitbox.top &&
+                coinHitbox.top < crocodileHitbox.bottom &&
+                coinHitbox.right > crocodileHitbox.left &&
+                coinHitbox.left < crocodileHitbox.right) {
+                
+                // Additional check to prevent collection through bottom of crocodile
+                if (coinHitbox.top <= crocodileHitbox.bottom) {
+                    // Play sound first
+                    playSound(collectSound);
+                    // Then handle other collision effects
+                    coins.splice(i, 1);
+                    score += 10;
+                    updateScore();
+                    return true;
+                }
             }
             return false;
         }
 
-        // Update bomb collision to set the cooldown
+        // Update bomb collision to be more precise as well
         function checkBombCollision(bomb, i) {
-            if (bomb.y + bomb.height > crocodile.y &&
-                bomb.x < crocodile.x + crocodile.width &&
-                bomb.x + bomb.width > crocodile.x) {
-                bombs.splice(i, 1);
-                lives--;
-                lastBombHit = Date.now(); // Set the cooldown timestamp
-                playSound(bombSound);
-                if (lives <= 0) {
-                    // Game over
-                    clearInterval(gameLoop);
-                    gameStarted = false;
-                    document.getElementById('finalScore').textContent = score;
-                    document.querySelector('.game-over-overlay').style.display = 'flex';
+            const crocodileHitbox = {
+                left: crocodile.x + 10,
+                right: crocodile.x + crocodile.width - 10,
+                top: crocodile.y + 5,
+                bottom: crocodile.y + crocodile.height - 5
+            };
+
+            const bombHitbox = {
+                left: bomb.x + 2,
+                right: bomb.x + bomb.width - 2,
+                top: bomb.y + 2,
+                bottom: bomb.y + bomb.height - 2
+            };
+
+            if (bombHitbox.bottom > crocodileHitbox.top &&
+                bombHitbox.top < crocodileHitbox.bottom &&
+                bombHitbox.right > crocodileHitbox.left &&
+                bombHitbox.left < crocodileHitbox.right) {
+                
+                // Additional check to prevent collision through bottom of crocodile
+                if (bombHitbox.top <= crocodileHitbox.bottom) {
+                    bombs.splice(i, 1);
+                    lives--;
+                    lastBombHit = Date.now();
+                    playSound(bombSound);
+                    if (lives <= 0) {
+                        // Game over
+                        clearInterval(gameLoop);
+                        gameStarted = false;
+                        document.getElementById('finalScore').textContent = score;
+                        document.querySelector('.game-over-overlay').style.display = 'flex';
+                    }
+                    return true;
                 }
-                return true;
             }
             return false;
         }

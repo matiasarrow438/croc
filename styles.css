@@ -1734,14 +1734,14 @@ html, body {
     }
 
     .token-logo {
-        width: 120px;
-        height: 120px;
+        width: 180px;
+        height: 180px;
     }
 
     .token-logo img {
         width: 100%;
         height: 100%;
-        max-width: 100px;
+        max-width: 160px;
         object-fit: contain;
     }
 
@@ -1752,14 +1752,14 @@ html, body {
 
 @media (max-width: 380px) {
     .token-logo {
-        width: 100px;
-        height: 100px;
+        width: 160px;
+        height: 160px;
     }
 
     .token-logo img {
         width: 100%;
         height: 100%;
-        max-width: 80px;
+        max-width: 140px;
         object-fit: contain;
     }
 

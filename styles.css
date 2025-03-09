@@ -515,7 +515,12 @@ body {
     height: 100%;
     display: block;
     object-fit: fill;
-    touch-action: pan-y; /* Allow vertical scrolling */
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .token-info-panel {
@@ -641,6 +646,10 @@ body {
         background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(5px);
         pointer-events: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
     }
 
     .control-button {
@@ -728,7 +737,7 @@ body {
 
 /* Mobile Controls */
 .mobile-controls {
-    display: none; /* Hidden by default (for desktop) */
+    display: none;
     position: absolute;
     left: 0;
     right: 0;
@@ -739,6 +748,10 @@ body {
     align-items: center;
     pointer-events: none;
     background: rgba(0, 0, 0, 0.7);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .control-button {
@@ -754,8 +767,13 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    pointer-events: auto;
     -webkit-tap-highlight-color: transparent;
-    pointer-events: auto; /* Re-enable pointer events for buttons */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    touch-action: manipulation;
 }
 
 .control-button:active {

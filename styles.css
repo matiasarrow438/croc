@@ -9,14 +9,14 @@
 }
 
 :root {
-    --primary: #2F4F2F;    /* Darker Forest Green */
-    --secondary: #8B0000;  /* Dark Red */
-    --background: #111111;
-    --surface: #1a1a1a;    /* Darker surface */
-    --text: #ffffff;
-    --accent: #8B0000;     /* Dark Red accent */
-    --green-glow: rgba(47, 79, 47, 0.5);
-    --red-glow: rgba(139, 0, 0, 0.5);
+    --primary: #4CAF50;    /* Bright Green */
+    --secondary: #FF4444;  /* Bright Red */
+    --background: #242938; /* Navy blue-ish background */
+    --surface: #2E3447;    /* Lighter navy blue surface */
+    --text: #FFFFFF;       /* Pure white text */
+    --accent: #FF4444;     /* Bright Red accent */
+    --green-glow: rgba(76, 175, 80, 0.5);
+    --red-glow: rgba(255, 68, 68, 0.5);
     --game-font: 'Sixtyfour Convergence', sans-serif;
 }
 
@@ -98,7 +98,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(10, 10, 10, 0.95);
+    background: rgba(36, 41, 56, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -247,7 +247,7 @@ body {
     background-clip: text;
     color: transparent;
     animation: glow 3s ease-in-out infinite;
-    text-shadow: 0 0 30px var(--green-glow);
+    text-shadow: 0 0 40px var(--green-glow);
 }
 
 .hero-subtitle {
@@ -278,14 +278,14 @@ body {
 
 .glow-button {
     background: linear-gradient(45deg, var(--primary), var(--secondary));
-    color: var(--background);
-    box-shadow: 0 0 20px var(--red-glow);
+    color: white;
+    box-shadow: 0 0 25px var(--green-glow);
 }
 
 .play-button {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     color: var(--text);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .glow-button:hover {
@@ -295,7 +295,7 @@ body {
 
 .play-button:hover {
     transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25);
 }
 
 .button-icon {
@@ -471,7 +471,7 @@ body {
     color: var(--primary);
     margin-bottom: 1rem;
     text-align: center;
-    text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    text-shadow: 0 0 30px var(--red-glow);
     background: linear-gradient(45deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     background-clip: text;
@@ -827,7 +827,7 @@ body {
         top: 60px; /* Match navbar height */
         left: 0;
         right: 0;
-        background: rgba(10, 10, 10, 0.98);
+        background: rgba(36, 41, 56, 0.98);
         backdrop-filter: blur(10px);
         padding: 1rem;
         flex-direction: column;
@@ -1164,7 +1164,7 @@ body {
 /* Gallery Section */
 .gallery-section {
     padding: 4rem 2rem;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    background: linear-gradient(135deg, #2E3447 0%, #3A4155 100%);
 }
 
 .gallery-container {
@@ -1372,7 +1372,7 @@ body {
 }
 
 .tokenomics-item {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.05);
     padding: 30px;
     border-radius: 15px;
     text-align: center;
@@ -1385,7 +1385,7 @@ body {
 
 .tokenomics-item:hover {
     transform: translateY(-5px);
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .tokenomics-icon {
@@ -1401,12 +1401,12 @@ body {
 }
 
 .tokenomics-item p {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 1.1em;
 }
 
 .tokenomics-item .tokenomics-subtitle {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 0.9em;
     font-style: italic;
 }
@@ -1426,7 +1426,7 @@ body {
 }
 
 .feature-card {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     padding: 30px;
     text-align: center;
@@ -1456,6 +1456,7 @@ body {
 
 .feature-card:hover {
     transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .feature-card:hover::before {
@@ -1475,7 +1476,7 @@ body {
 }
 
 .feature-card p {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 1em;
     line-height: 1.6;
 }

@@ -1734,8 +1734,13 @@ html, body {
     }
 
     .token-logo {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .token-logo img {
+        height: 100px; /* Smaller size for mobile */
+        width: auto;
     }
 
     .token-title {
@@ -1745,8 +1750,13 @@ html, body {
 
 @media (max-width: 380px) {
     .token-logo {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .token-logo img {
+        height: 80px; /* Even smaller for very small devices */
+        width: auto;
     }
 
     .token-title {

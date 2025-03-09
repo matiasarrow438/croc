@@ -239,44 +239,44 @@
         
         // Initialize sound state
         let soundInitialized = false;
+        let soundEnabled = true;
 
         // Function to initialize sounds on first interaction
         function initializeSounds() {
             if (!soundInitialized) {
-                collectSound.play().then(() => {
-                    collectSound.pause();
-                    collectSound.currentTime = 0;
-                }).catch(console.error);
+                // Create a temporary AudioContext
+                const tempContext = new (window.AudioContext || window.webkitAudioContext)();
                 
-                bombSound.play().then(() => {
-                    bombSound.pause();
-                    bombSound.currentTime = 0;
-                }).catch(console.error);
-                
-                soundInitialized = true;
+                // Try to play both sounds
+                Promise.all([
+                    collectSound.play().then(() => collectSound.pause()),
+                    bombSound.play().then(() => bombSound.pause())
+                ]).then(() => {
+                    soundInitialized = true;
+                }).catch(error => {
+                    console.log('Sound initialization failed, will retry on next interaction');
+                });
+
+                // Reset sounds
+                collectSound.currentTime = 0;
+                bombSound.currentTime = 0;
             }
         }
         
-        // Function to play sounds immediately
+        // Function to play sounds
         function playSound(audio) {
-            if (!soundInitialized) {
-                initializeSounds();
-                return;
-            }
+            if (!soundEnabled) return;
             
-            // Reset audio to start
+            // Reset the audio to start
             audio.currentTime = 0;
             
-            // For mobile devices, ensure sound is ready
-            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                audio.play().catch(() => {
-                    // If failed, try to reinitialize
-                    soundInitialized = false;
+            // Try to play the sound
+            audio.play().catch(error => {
+                if (!soundInitialized) {
+                    // If sound isn't initialized, try to initialize
                     initializeSounds();
-                });
-            } else {
-                audio.play().catch(console.error);
-            }
+                }
+            });
         }
 
         // Mobile menu
@@ -928,8 +928,9 @@
             }
         }
 
-        // Add touch event listener for sound initialization
+        // Add touch event listeners for sound initialization
         document.addEventListener('touchstart', initializeSounds, { once: true });
+        document.addEventListener('click', initializeSounds, { once: true });
     </script>
 </body>
 </html>        

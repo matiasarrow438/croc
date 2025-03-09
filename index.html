@@ -197,6 +197,41 @@
             }, 1500);
         });
 
+        // Audio elements
+        const collectSound = new Audio('assets/collect.mp3');
+        const bombSound = new Audio('assets/bomb.mp4');
+        
+        // Set volume (0.0 to 1.0)
+        collectSound.volume = 0.25; // 25% volume
+        bombSound.volume = 0.35;    // 35% volume
+        
+        // Set playback rate for coin sound (1.0 is normal speed, 2.0 is twice as fast)
+        collectSound.playbackRate = 3.0; // 3x normal speed
+        
+        // Preload sounds
+        collectSound.load();
+        bombSound.load();
+        
+        // Function to play sounds
+        function playSound(audio) {
+            // If it's the collect sound and it's currently playing, stop it
+            if (audio === collectSound && !audio.paused) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+            
+            // Reset the audio to start
+            audio.currentTime = 0;
+            
+            // Create a promise to handle autoplay restrictions
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Audio playback prevented by browser:", error);
+                });
+            }
+        }
+
         // Mobile menu
         document.querySelector('.menu-toggle').addEventListener('click', () => {
             document.querySelector('.nav-links').classList.toggle('active');
@@ -649,6 +684,7 @@
                     coins.splice(i, 1);
                     score += 10;
                     updateScore();
+                    playSound(collectSound); // Play coin collection sound
                 }
                 
                 if (coin.y > canvas.height) {
@@ -669,6 +705,7 @@
                     bomb.x + bomb.width > crocodile.x) {
                     bombs.splice(i, 1);
                     lives--;
+                    playSound(bombSound); // Play bomb hit sound
                     if (lives <= 0) {
                         // Game over
                         clearInterval(gameLoop);
@@ -744,8 +781,10 @@
 
         // Mobile Controls Handler
         function handleMobileControl(direction, isPressed) {
-            // Prevent default touch behavior
-            event.preventDefault();
+            // Only prevent default for the control buttons
+            if (event.target.classList.contains('control-button')) {
+                event.preventDefault();
+            }
             
             // Update keys state based on touch
             if (direction === 'left') {

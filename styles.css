@@ -515,7 +515,7 @@ body {
     height: 100%;
     display: block;
     object-fit: fill;
-    touch-action: none;
+    touch-action: pan-y; /* Allow vertical scrolling */
 }
 
 .token-info-panel {

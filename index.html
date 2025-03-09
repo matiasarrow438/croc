@@ -198,36 +198,35 @@
         });
 
         // Audio elements
-        const collectSound = new Audio('assets/collect.mp3');
+        const collectSound = new Audio('assets/collect.mp4');
         const bombSound = new Audio('assets/bomb.mp4');
         
-        // Set volume (0.0 to 1.0)
-        collectSound.volume = 0.25; // 25% volume
-        bombSound.volume = 0.35;    // 35% volume
+        // Set volume and properties
+        collectSound.volume = 0.25;
+        bombSound.volume = 0.45;
         
-        // Set playback rate for coin sound (1.0 is normal speed, 2.0 is twice as fast)
-        collectSound.playbackRate = 3.0; // 3x normal speed
+        // Enable fast loading and autoplay
+        collectSound.preload = 'auto';
+        bombSound.preload = 'auto';
+        collectSound.autoplay = true;
+        bombSound.autoplay = true;
         
         // Preload sounds
         collectSound.load();
         bombSound.load();
         
-        // Function to play sounds
+        // Function to play sounds immediately
         function playSound(audio) {
-            // If it's the collect sound and it's currently playing, stop it
-            if (audio === collectSound && !audio.paused) {
-                audio.pause();
-                audio.currentTime = 0;
-            }
-            
-            // Reset the audio to start
+            // Reset and play immediately
             audio.currentTime = 0;
-            
-            // Create a promise to handle autoplay restrictions
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Audio playback prevented by browser:", error);
+            const promise = audio.play();
+            if (promise !== undefined) {
+                promise.catch(() => {
+                    // If autoplay was prevented, try one more time on user interaction
+                    document.addEventListener('click', function tryPlay() {
+                        audio.play();
+                        document.removeEventListener('click', tryPlay);
+                    }, { once: true });
                 });
             }
         }
@@ -598,6 +597,52 @@
             ctx.shadowBlur = 0;
         }
 
+        // Add collision cooldown
+        let lastBombHit = 0;
+        const BOMB_COOLDOWN = 500; // 500ms cooldown after bomb hit
+
+        // Move collision detection to be more immediate
+        function checkCollisions(coin, i) {
+            // Don't collect coins right after bomb hit
+            if (Date.now() - lastBombHit < BOMB_COOLDOWN) {
+                return false;
+            }
+
+            if (coin.y + coin.height > crocodile.y &&
+                coin.x < crocodile.x + crocodile.width &&
+                coin.x + coin.width > crocodile.x) {
+                // Play sound first
+                playSound(collectSound);
+                // Then handle other collision effects
+                coins.splice(i, 1);
+                score += 10;
+                updateScore();
+                return true;
+            }
+            return false;
+        }
+
+        // Update bomb collision to set the cooldown
+        function checkBombCollision(bomb, i) {
+            if (bomb.y + bomb.height > crocodile.y &&
+                bomb.x < crocodile.x + crocodile.width &&
+                bomb.x + bomb.width > crocodile.x) {
+                bombs.splice(i, 1);
+                lives--;
+                lastBombHit = Date.now(); // Set the cooldown timestamp
+                playSound(bombSound);
+                if (lives <= 0) {
+                    // Game over
+                    clearInterval(gameLoop);
+                    gameStarted = false;
+                    document.getElementById('finalScore').textContent = score;
+                    document.querySelector('.game-over-overlay').style.display = 'flex';
+                }
+                return true;
+            }
+            return false;
+        }
+
         function update() {
             if (isPaused) return;
 
@@ -630,6 +675,11 @@
             for (let i = coins.length - 1; i >= 0; i--) {
                 const coin = coins[i];
                 coin.y += coin.speed * deltaTime;
+                
+                // Check collision first, before drawing
+                if (checkCollisions(coin, i)) {
+                    continue; // Skip drawing if collected
+                }
                 
                 // Draw coin with gradient
                 const gradient = ctx.createRadialGradient(
@@ -676,20 +726,6 @@
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText('$', coin.x + coin.width/2, coin.y + coin.height/2);
-                
-                // Check coin collision
-                if (coin.y + coin.height > crocodile.y &&
-                    coin.x < crocodile.x + crocodile.width &&
-                    coin.x + coin.width > crocodile.x) {
-                    coins.splice(i, 1);
-                    score += 10;
-                    updateScore();
-                    playSound(collectSound); // Play coin collection sound
-                }
-                
-                if (coin.y > canvas.height) {
-                    coins.splice(i, 1);
-                }
             }
 
             // Update and draw bombs with deltaTime
@@ -700,19 +736,8 @@
                 drawBomb(bomb.x, bomb.y);
                 
                 // Check bomb collision
-                if (bomb.y + bomb.height > crocodile.y &&
-                    bomb.x < crocodile.x + crocodile.width &&
-                    bomb.x + bomb.width > crocodile.x) {
-                    bombs.splice(i, 1);
-                    lives--;
-                    playSound(bombSound); // Play bomb hit sound
-                    if (lives <= 0) {
-                        // Game over
-                        clearInterval(gameLoop);
-                        gameStarted = false;
-                        document.getElementById('finalScore').textContent = score;
-                        document.querySelector('.game-over-overlay').style.display = 'flex';
-                    }
+                if (checkBombCollision(bomb, i)) {
+                    continue;
                 }
                 
                 if (bomb.y > canvas.height) {

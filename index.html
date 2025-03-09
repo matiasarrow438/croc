@@ -734,9 +734,17 @@
                     lives--;
                     lastBombHit = Date.now();
                     playSound(bombSound);
+                    
+                    // Ensure coin spawning continues
+                    if (!coinSpawnInterval) {
+                        coinSpawnInterval = setInterval(spawnCoin, 1000);
+                    }
+                    
                     if (lives <= 0) {
                         // Game over
                         clearInterval(gameLoop);
+                        clearInterval(coinSpawnInterval);
+                        clearInterval(bombSpawnInterval);
                         gameStarted = false;
                         document.getElementById('finalScore').textContent = score;
                         document.querySelector('.game-over-overlay').style.display = 'flex';
@@ -747,12 +755,18 @@
             return false;
         }
 
+        // Add a safety check in the update function to ensure coin spawning
         function update() {
             if (isPaused) return;
 
             const currentTime = performance.now();
-            const deltaTime = Math.min((currentTime - lastTimestamp) / 16.67, 3); // Cap deltaTime to prevent huge jumps
+            const deltaTime = Math.min((currentTime - lastTimestamp) / 16.67, 3);
             lastTimestamp = currentTime;
+
+            // Ensure coin spawning is active
+            if (gameStarted && !coinSpawnInterval) {
+                coinSpawnInterval = setInterval(spawnCoin, 1000);
+            }
 
             // Clear canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);

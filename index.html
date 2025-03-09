@@ -233,45 +233,49 @@
         collectSound.volume = 0.25;
         bombSound.volume = 0.45;
         
-        // Enable fast loading and autoplay
+        // Enable fast loading
         collectSound.preload = 'auto';
         bombSound.preload = 'auto';
-        collectSound.autoplay = true;
-        bombSound.autoplay = true;
         
-        // Preload sounds
-        collectSound.load();
-        bombSound.load();
+        // Initialize sound state
+        let soundInitialized = false;
+
+        // Function to initialize sounds on first interaction
+        function initializeSounds() {
+            if (!soundInitialized) {
+                collectSound.play().then(() => {
+                    collectSound.pause();
+                    collectSound.currentTime = 0;
+                }).catch(console.error);
+                
+                bombSound.play().then(() => {
+                    bombSound.pause();
+                    bombSound.currentTime = 0;
+                }).catch(console.error);
+                
+                soundInitialized = true;
+            }
+        }
         
         // Function to play sounds immediately
         function playSound(audio) {
+            if (!soundInitialized) {
+                initializeSounds();
+                return;
+            }
+            
             // Reset audio to start
             audio.currentTime = 0;
             
-            // For mobile devices, we need to handle the promise
+            // For mobile devices, ensure sound is ready
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                const promise = audio.play();
-                if (promise !== undefined) {
-                    promise.catch(() => {
-                        // On mobile, try to play on next user interaction
-                        const playOnTouch = () => {
-                            audio.play().catch(() => {}); // Catch any further errors silently
-                            document.removeEventListener('touchstart', playOnTouch);
-                            document.removeEventListener('click', playOnTouch);
-                        };
-                        document.addEventListener('touchstart', playOnTouch, { once: true });
-                        document.addEventListener('click', playOnTouch, { once: true });
-                    });
-                }
-            } else {
-                // For desktop, use the original behavior
                 audio.play().catch(() => {
-                    // If autoplay was prevented, try one more time on user interaction
-                    document.addEventListener('click', function tryPlay() {
-                        audio.play();
-                        document.removeEventListener('click', tryPlay);
-                    }, { once: true });
+                    // If failed, try to reinitialize
+                    soundInitialized = false;
+                    initializeSounds();
                 });
+            } else {
+                audio.play().catch(console.error);
             }
         }
 
@@ -494,6 +498,10 @@
 
         function startGame() {
             if (gameStarted) return;
+            
+            // Initialize sounds on game start
+            initializeSounds();
+            
             gameStarted = true;
             isPaused = false;
             lastTimestamp = performance.now();
@@ -531,7 +539,19 @@
         function spawnCoin() {
             if (isPaused) return;
             
-            // Only spawn if we don't have too many coins
+            // Ensure we spawn at least one coin if there are none
+            if (coins.length === 0) {
+                coins.push({
+                    x: Math.random() * (canvas.width - 30),
+                    y: -30,
+                    width: 30,
+                    height: 30,
+                    speed: 2 + Math.random() * 2
+                });
+                return;
+            }
+            
+            // Regular spawn logic for additional coins
             if (coins.length < 5) {
                 coins.push({
                     x: Math.random() * (canvas.width - 30),
@@ -907,6 +927,9 @@
                 startGame();
             }
         }
+
+        // Add touch event listener for sound initialization
+        document.addEventListener('touchstart', initializeSounds, { once: true });
     </script>
 </body>
 </html>        
